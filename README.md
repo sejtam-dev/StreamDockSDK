@@ -15,29 +15,29 @@
 
 ## 🚀 What’s inside
 
-- 🧩 **C# SDK** for the StreamDock WebSocket plugin protocol
-- 🎛️ **Example plugin** showing real-world actions (buttons + knobs)
-- 🧰 **Property Inspector** helpers and UI patterns
-- 🌍 **i18n-ready** Property Inspector (language auto-detected)
+- **C# SDK** for the StreamDock WebSocket plugin protocol
+- **Example plugin** showing real-world actions (buttons + knobs)
+- **Property Inspector** helpers and UI patterns
+- **i18n-ready** Property Inspector (language auto-detected)
 
 ---
 
 ## ✨ Why you’ll like it
 
-- ⚡ **Async-first** API
-- 🧠 **Typed events** (less trial & error with raw JSON)
-- 🧱 **Action handler pattern** (keeps plugin code clean)
-- 🪵 **Built-in logging** (log4net)
-- 🌍 **i18n-friendly Property Inspector** (language auto-detected)
-- 🧪 Practical by default — easy to copy, tweak, and ship
+- **Async-first** API
+- **Typed events** (less trial & error with raw JSON)
+- **Action handler pattern** (keeps plugin code clean)
+- **Built-in logging** (log4net)
+- **i18n-friendly Property Inspector** (language auto-detected)
+- Practical by default — easy to copy, tweak, and ship
 
 ---
 
 ## 🧰 Requirements
 
-- 🪟 Windows 10+
-- 🧱 .NET SDK (currently targeting .NET 9)
-- 🎚️ StreamDock software installed
+- Windows 10+
+- .NET SDK (currently targeting .NET 9)
+- StreamDock software installed
 
 ---
 
@@ -64,8 +64,8 @@ cd .\ExamplePlugin\Scripts
 
 Contributions are welcome! 🧡
 
-- 🐛 Found a bug or a protocol mismatch? Open an issue.
-- 🧾 Please include logs + raw JSON payloads when possible (it helps a lot).
+- Found a bug or a protocol mismatch? Open an issue.
+- Please include logs + raw JSON payloads when possible (it helps a lot).
 
 ---
 
