@@ -1,17 +1,17 @@
 ﻿/**
  * StreamDock Property Inspector Common JavaScript Library
- * 
+ *
  * Provides utilities for creating Property Inspector UIs for StreamDock plugins.
  * Compatible with Elgato Stream Deck API for cross-platform development.
- * 
+ *
  * @file sdpi.js
  * @version 1.0.0
  * @license MIT
- * 
+ *
  * @example
  * // In your HTML file:
  * <script src="Common/sdpi.js"></script>
- * 
+ *
  * // In your JS file:
  * document.addEventListener('DOMContentLoaded', () => {
  *     sdpi.registerSetting('inputId', 'settingKey');
@@ -39,16 +39,16 @@ let translations = {};
 /**
  * StreamDock entry point - called automatically by StreamDock software
  * Uses Elgato Stream Deck API signature for compatibility
- * 
+ *
  * This function is called when the Property Inspector is opened.
  * Do NOT call this manually - StreamDock calls it automatically.
- * 
+ *
  * @param {number} inPort - WebSocket port number
  * @param {string} inPropertyInspectorUUID - UUID for this Property Inspector instance
  * @param {string} inRegisterEvent - Event name to register with
  * @param {string} inInfo - JSON string with StreamDock info
  * @param {string} inActionInfo - JSON string with action information and current settings
- * 
+ *
  * @example
  * // StreamDock automatically calls:
  * connectElgatoStreamDeckSocket(28196, "uuid-here", "registerPropertyInspector", "{}", "{}");
@@ -113,7 +113,7 @@ function connectElgatoStreamDeckSocket(inPort, inPropertyInspectorUUID, inRegist
                 currentSettings = jsonObj.payload?.settings || {};
                 console.log('[PI] Settings updated:', currentSettings);
                 loadSettingsIntoUI();
-                
+
                 // Trigger custom event
                 triggerEvent('settingsUpdated', currentSettings);
             }
@@ -131,24 +131,24 @@ const eventListeners = {};
 
 /**
  * Register a setting element for automatic synchronization
- * 
+ *
  * Automatically:
  * - Loads initial value from settings
  * - Saves changes to StreamDock
  * - Handles different input types (text, checkbox, select, etc.)
- * 
+ *
  * @param {string} elementId - ID of the HTML element
  * @param {string} settingKey - Key in the settings object
  * @param {function} [parser=null] - Optional function to parse the value before saving (e.g., parseInt, parseFloat)
- * 
+ *
  * @example
  * // Text input
  * sdpi.registerSetting('nameInput', 'userName');
- * 
+ *
  * @example
  * // Number input with parsing
  * sdpi.registerSetting('counterInput', 'startValue', parseInt);
- * 
+ *
  * @example
  * // Checkbox
  * sdpi.registerSetting('enabledCheckbox', 'isEnabled');
@@ -192,12 +192,12 @@ function registerSetting(elementId, settingKey, parser = null) {
 
 /**
  * Update a single setting value
- * 
+ *
  * Updates the setting in memory and immediately saves to StreamDock.
- * 
+ *
  * @param {string} key - Setting key
  * @param {any} value - Setting value (will be JSON serialized)
- * 
+ *
  * @example
  * sdpi.updateSetting('counter', 42);
  * sdpi.updateSetting('enabled', true);
@@ -209,10 +209,10 @@ function updateSetting(key, value) {
 
 /**
  * Load current settings into registered UI elements
- * 
+ *
  * Called automatically when settings are received from StreamDock.
  * Can be called manually to refresh UI.
- * 
+ *
  * @private
  */
 function loadSettingsIntoUI() {
@@ -240,10 +240,10 @@ function loadSettingsIntoUI() {
 
 /**
  * Save current settings to StreamDock
- * 
+ *
  * Sends all current settings to StreamDock via WebSocket.
  * Settings are persisted and sent to the plugin.
- * 
+ *
  * @private
  */
 function saveSettings() {
@@ -262,19 +262,19 @@ function saveSettings() {
 
 /**
  * Send custom data to the plugin
- * 
+ *
  * Use this to send custom commands or data that isn't part of settings.
  * The plugin receives this via OnSendToPluginAsync() method.
- * 
+ *
  * @param {object} payload - Data to send (will be JSON serialized)
- * 
+ *
  * @example
  * // Send a reset command
  * sdpi.sendToPlugin({ action: 'reset' });
- * 
+ *
  * @example
  * // Send custom data
- * sdpi.sendToPlugin({ 
+ * sdpi.sendToPlugin({
  *     action: 'updateValue',
  *     value: 42,
  *     timestamp: Date.now()
@@ -296,10 +296,10 @@ function sendToPlugin(payload) {
 
 /**
  * Register event listener
- * 
+ *
  * @param {string} eventName - Name of the event to listen for
  * @param {function} callback - Function to call when event is triggered
- * 
+ *
  * @example
  * sdpi.on('settingsUpdated', (settings) => {
  *     console.log('Settings changed:', settings);
@@ -315,7 +315,7 @@ function on(eventName, callback) {
 
 /**
  * Trigger custom event
- * 
+ *
  * @param {string} eventName - Name of the event to trigger
  * @param {any} data - Data to pass to event listeners
  * @private
@@ -339,18 +339,18 @@ function triggerEvent(eventName, data) {
 
 /**
  * Load translations for current language
- * 
+ *
  * Attempts to load translations from:
  * 1. ../Lang/{lang}.json (e.g., ../Lang/cs.json)
  * 2. Falls back to en.json if language file not found
- * 
+ *
  * @private
  */
 function loadTranslations() {
     const langFile = `../Lang/${currentLanguage}.json`;
-    
+
     console.log(`[PI] Loading translations: ${langFile}`);
-    
+
     fetch(langFile)
         .then(response => {
             if (!response.ok) {
@@ -405,25 +405,25 @@ function loadTranslations() {
 
 /**
  * Get translated string
- * 
+ *
  * @param {string} key - Translation key (dot notation supported, e.g., 'settings.volume')
  * @param {string} [defaultValue=key] - Default value if translation not found
  * @returns {string} Translated string or default value
- * 
+ *
  * @example
  * const volumeLabel = sdpi.translate('settings.volume', 'Volume');
- * 
+ *
  * @example
  * // With nested keys
  * const resetBtn = sdpi.translate('buttons.reset', 'Reset');
  */
 function translate(key, defaultValue) {
     if (!key) return defaultValue || '';
-    
+
     // Support dot notation (e.g., 'settings.volume')
     const keys = key.split('.');
     let value = translations;
-    
+
     for (const k of keys) {
         if (value && typeof value === 'object' && k in value) {
             value = value[k];
@@ -431,39 +431,39 @@ function translate(key, defaultValue) {
             return defaultValue || key;
         }
     }
-    
+
     return typeof value === 'string' ? value : (defaultValue || key);
 }
 
 /**
  * Apply translations to elements with data-i18n attribute
- * 
+ *
  * Automatically translates all elements with data-i18n attribute.
- * 
+ *
  * @example
  * <label data-i18n="settings.volume">Volume</label>
  * <button data-i18n="buttons.reset">Reset</button>
- * 
+ *
  * @private
  */
 function applyTranslations() {
     console.log('[PI] Applying translations to UI');
-    
+
     document.querySelectorAll('[data-i18n]').forEach(element => {
         const key = element.getAttribute('data-i18n');
         const translated = translate(key, element.textContent);
-        
+
         if (translated !== key) {
             element.textContent = translated;
             console.log(`[PI] Translated ${key} -> ${translated}`);
         }
     });
-    
+
     // Also translate placeholders
     document.querySelectorAll('[data-i18n-placeholder]').forEach(element => {
         const key = element.getAttribute('data-i18n-placeholder');
         const translated = translate(key, element.placeholder);
-        
+
         if (translated !== key) {
             element.placeholder = translated;
             console.log(`[PI] Translated placeholder ${key} -> ${translated}`);
@@ -474,7 +474,7 @@ function applyTranslations() {
 // Export API for use in HTML/JavaScript
 /**
  * StreamDock Property Inspector API
- * 
+ *
  * @namespace sdpi
  * @property {function} registerSetting - Register a setting for automatic sync
  * @property {function} updateSetting - Manually update a setting value
@@ -483,19 +483,19 @@ function applyTranslations() {
  * @property {function} on - Register event listener
  * @property {function} translate - Get translated string
  * @property {function} getLanguage - Get current language code
- * 
+ *
  * @example
  * // Register settings
  * sdpi.registerSetting('input1', 'settingKey1');
- * 
+ *
  * @example
  * // Update setting manually
  * sdpi.updateSetting('myKey', 'myValue');
- * 
+ *
  * @example
  * // Send custom command
  * sdpi.sendToPlugin({ action: 'doSomething' });
- * 
+ *
  * @example
  * // Translate text
  * const text = sdpi.translate('settings.volume', 'Volume');

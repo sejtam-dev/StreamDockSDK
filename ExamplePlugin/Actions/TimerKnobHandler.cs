@@ -1,4 +1,5 @@
-﻿using log4net;
+﻿using System.Text.Json;
+using log4net;
 using StreamDockSDK;
 using StreamDockSDK.Actions;
 
@@ -6,14 +7,12 @@ namespace ExamplePlugin.Actions;
 
 /// <summary>
 ///     Timer Knob action demonstrating practical encoder usage
-///     
 ///     Features:
 ///     - Rotate to set timer duration (1-60 minutes)
 ///     - Short press: Start/Stop timer
 ///     - Long press: Reset timer
 ///     - Shows remaining time and progress
 ///     - Alert when timer completes
-///     
 ///     Settings:
 ///     - duration (int): Timer duration in minutes (1-60)
 ///     - isRunning (bool): Timer running state
@@ -23,19 +22,19 @@ namespace ExamplePlugin.Actions;
 public class TimerKnobHandler : ActionHandler
 {
     private static readonly ILog Logger = LogManager.GetLogger(typeof(TimerKnobHandler));
-    
+
     private readonly object _lock = new();
-    
+
+    // Update timer for running countdown
+    private Timer? _countdownTimer;
+
     // Timer state
     private int _durationMinutes;
     private bool _isRunning;
-    private DateTime? _startTime;
-    
+
     // Long press detection
     private DateTime? _pressStartTime;
-    
-    // Update timer for running countdown
-    private Timer? _countdownTimer;
+    private DateTime? _startTime;
 
     public TimerKnobHandler(StreamDockConnection connection, string context, Dictionary<string, object>? settings)
         : base(connection, context, settings)
@@ -46,15 +45,12 @@ public class TimerKnobHandler : ActionHandler
     public override async Task OnWillAppearAsync()
     {
         Logger.Info($"[TimerKnob] Action appeared - Context: {Context}");
-        
+
         LoadSettings();
-        
+
         // Resume countdown if was running
-        if (_isRunning && _startTime.HasValue)
-        {
-            StartCountdown();
-        }
-        
+        if (_isRunning && _startTime.HasValue) StartCountdown();
+
         await UpdateDisplayAsync();
     }
 
@@ -65,13 +61,11 @@ public class TimerKnobHandler : ActionHandler
     {
         _durationMinutes = GetSetting("duration", 5);
         _isRunning = GetSetting("isRunning", false);
-        
+
         var startTimeStr = GetSetting("startTime", string.Empty);
         if (!string.IsNullOrEmpty(startTimeStr) && DateTime.TryParse(startTimeStr, out var startTime))
-        {
             _startTime = startTime;
-        }
-        
+
         Logger.Info($"[TimerKnob] Settings loaded - Duration: {_durationMinutes}m, Running: {_isRunning}");
     }
 
@@ -80,15 +74,15 @@ public class TimerKnobHandler : ActionHandler
     /// </summary>
     public override async Task OnSettingsChangedAsync(Dictionary<string, object> settings)
     {
-        Logger.Info($"[TimerKnob] Settings changed");
-        
+        Logger.Info("[TimerKnob] Settings changed");
+
         // Update internal settings reference
         UpdateSettings(settings);
-        
+
         // Reload settings into state
         var oldDuration = _durationMinutes;
         LoadSettings();
-        
+
         // Only update display if duration changed and not running
         if (oldDuration != _durationMinutes && !_isRunning)
         {
@@ -100,14 +94,14 @@ public class TimerKnobHandler : ActionHandler
     /// <summary>
     ///     Handle custom messages from Property Inspector (e.g., reset button)
     /// </summary>
-    public override async Task OnSendToPluginAsync(System.Text.Json.JsonElement payload)
+    public override async Task OnSendToPluginAsync(JsonElement payload)
     {
-        Logger.Info($"[TimerKnob] Received sendToPlugin message");
-        
+        Logger.Info("[TimerKnob] Received sendToPlugin message");
+
         // Check if this is a reset command
         if (payload.TryGetProperty("action", out var actionObj) && actionObj.GetString() == "resetTimer")
         {
-            Logger.Info($"[TimerKnob] Reset command received from Property Inspector");
+            Logger.Info("[TimerKnob] Reset command received from Property Inspector");
             await HandleReset();
         }
     }
@@ -118,19 +112,19 @@ public class TimerKnobHandler : ActionHandler
     public override async Task OnDialRotateAsync(int ticks, bool pressed)
     {
         Logger.Debug($"[TimerKnob] Rotate - Ticks: {ticks}");
-        
+
         // Can only adjust when not running
         if (_isRunning)
         {
-            Logger.Info($"[TimerKnob] Cannot adjust while running");
+            Logger.Info("[TimerKnob] Cannot adjust while running");
             return;
         }
-        
+
         _durationMinutes += ticks;
         _durationMinutes = Math.Clamp(_durationMinutes, 1, 60);
-        
+
         Logger.Info($"[TimerKnob] Duration set to {_durationMinutes} minutes");
-        
+
         await SaveStateAsync();
         await UpdateDisplayAsync();
     }
@@ -144,6 +138,7 @@ public class TimerKnobHandler : ActionHandler
         {
             _pressStartTime = DateTime.Now;
         }
+
         return Task.CompletedTask;
     }
 
@@ -153,27 +148,23 @@ public class TimerKnobHandler : ActionHandler
     public override async Task OnDialUpAsync()
     {
         DateTime? startTime;
-        
+
         lock (_lock)
         {
             startTime = _pressStartTime;
             _pressStartTime = null;
         }
-        
+
         if (startTime == null) return;
-        
+
         var pressDuration = (DateTime.Now - startTime.Value).TotalMilliseconds;
-        
+
         if (pressDuration >= 500)
-        {
             // Long press - reset
             await HandleReset();
-        }
         else
-        {
             // Short press - start/stop
             await HandleStartStop();
-        }
     }
 
     /// <summary>
@@ -184,7 +175,7 @@ public class TimerKnobHandler : ActionHandler
         if (_isRunning)
         {
             // Stop
-            Logger.Info($"[TimerKnob] Stopping timer");
+            Logger.Info("[TimerKnob] Stopping timer");
             StopCountdown();
         }
         else
@@ -195,7 +186,7 @@ public class TimerKnobHandler : ActionHandler
             _isRunning = true;
             StartCountdown();
         }
-        
+
         await SaveStateAsync();
         await UpdateDisplayAsync();
     }
@@ -205,11 +196,11 @@ public class TimerKnobHandler : ActionHandler
     /// </summary>
     private async Task HandleReset()
     {
-        Logger.Info($"[TimerKnob] Resetting timer");
-        
+        Logger.Info("[TimerKnob] Resetting timer");
+
         StopCountdown();
         _startTime = null;
-        
+
         await SaveStateAsync();
         await UpdateDisplayAsync();
     }
@@ -232,7 +223,7 @@ public class TimerKnobHandler : ActionHandler
     private void StopCountdown()
     {
         _isRunning = false;
-        
+
         lock (_lock)
         {
             _countdownTimer?.Dispose();
@@ -246,18 +237,18 @@ public class TimerKnobHandler : ActionHandler
     private void UpdateCountdown()
     {
         if (!_isRunning || !_startTime.HasValue) return;
-        
+
         var elapsed = DateTime.Now - _startTime.Value;
         var totalDuration = TimeSpan.FromMinutes(_durationMinutes);
         var remaining = totalDuration - elapsed;
-        
+
         if (remaining.TotalSeconds <= 0)
         {
             // Timer finished!
-            Logger.Info($"[TimerKnob] Timer finished!");
-            
+            Logger.Info("[TimerKnob] Timer finished!");
+
             StopCountdown();
-            
+
             _ = Task.Run(async () =>
             {
                 await Task.Delay(500);
@@ -281,13 +272,13 @@ public class TimerKnobHandler : ActionHandler
         {
             string title;
             int progressPercent;
-            
+
             if (_isRunning && _startTime.HasValue)
             {
                 var elapsed = DateTime.Now - _startTime.Value;
                 var totalDuration = TimeSpan.FromMinutes(_durationMinutes);
                 var remaining = totalDuration - elapsed;
-                
+
                 if (remaining.TotalSeconds > 0)
                 {
                     // Show remaining time
@@ -295,8 +286,8 @@ public class TimerKnobHandler : ActionHandler
                         title = $"{(int)remaining.TotalMinutes}:{remaining.Seconds:D2}";
                     else
                         title = $"{(int)remaining.TotalSeconds}s";
-                    
-                    progressPercent = (int)((elapsed.TotalMilliseconds / totalDuration.TotalMilliseconds) * 100);
+
+                    progressPercent = (int)(elapsed.TotalMilliseconds / totalDuration.TotalMilliseconds * 100);
                 }
                 else
                 {
@@ -310,26 +301,27 @@ public class TimerKnobHandler : ActionHandler
                 title = $"{_durationMinutes}m";
                 progressPercent = 0;
             }
-            
+
             await SetTitleAsync(title);
-            
+
             // Set feedback with progress indicator
             await Connection.SetFeedbackAsync(Context, new Dictionary<string, object>
             {
                 { "value", progressPercent },
-                { "indicator", new Dictionary<string, object>
+                {
+                    "indicator", new Dictionary<string, object>
                     {
                         { "value", progressPercent },
                         { "enabled", _isRunning }
                     }
                 }
             });
-            
+
             Logger.Debug($"[TimerKnob] Display updated - Title: {title}, Progress: {progressPercent}%");
         }
         catch (Exception ex)
         {
-            Logger.Error($"[TimerKnob] Error updating display", ex);
+            Logger.Error("[TimerKnob] Error updating display", ex);
         }
     }
 
@@ -344,7 +336,7 @@ public class TimerKnobHandler : ActionHandler
             ["isRunning"] = _isRunning,
             ["startTime"] = _startTime?.ToString("o") ?? ""
         };
-        
+
         await SetSettingsAsync(newSettings);
     }
 
@@ -354,13 +346,12 @@ public class TimerKnobHandler : ActionHandler
     protected override void Dispose(bool disposing)
     {
         if (disposing)
-        {
             lock (_lock)
             {
                 _countdownTimer?.Dispose();
                 _countdownTimer = null;
             }
-        }
+
         base.Dispose(disposing);
     }
 }

@@ -20,12 +20,25 @@ public delegate ActionHandler? ActionHandlerFactory(StreamDockConnection connect
 public class ActionHandlerManager : IDisposable
 {
     private static readonly ILog Log = LogManager.GetLogger(typeof(ActionHandlerManager));
-    private readonly SemaphoreSlim _semaphore = new(1, 1);
+    
     private readonly Dictionary<string, ActionHandlerFactory> _factories = new();
-
     private readonly Dictionary<string, ActionHandler> _handlers = new();
     private readonly Dictionary<string, Type> _handlerTypes = new();
+    
+    private readonly SemaphoreSlim _semaphore = new(1, 1);
     private bool _disposed;
+
+    /// <summary>
+    ///     Dispose of resources
+    /// </summary>
+    public void Dispose()
+    {
+        if (_disposed) return;
+
+        _semaphore.Dispose();
+        _disposed = true;
+        GC.SuppressFinalize(this);
+    }
 
     /// <summary>
     ///     Register a custom factory for an action
@@ -199,10 +212,9 @@ public class ActionHandlerManager : IDisposable
             if (_handlers.TryGetValue(context, out var handler))
             {
                 _handlers.Remove(context);
-                
+
                 // Dispose handler if it implements IDisposable
                 if (handler is IDisposable disposable)
-                {
                     try
                     {
                         disposable.Dispose();
@@ -211,8 +223,7 @@ public class ActionHandlerManager : IDisposable
                     {
                         Log.Error($"Error disposing handler for context: {context}", ex);
                     }
-                }
-                
+
                 Log.Debug($"Removed handler for context: {context}");
             }
         }
@@ -248,9 +259,7 @@ public class ActionHandlerManager : IDisposable
         {
             // Dispose all handlers
             foreach (var handler in _handlers.Values)
-            {
                 if (handler is IDisposable disposable)
-                {
                     try
                     {
                         disposable.Dispose();
@@ -259,9 +268,7 @@ public class ActionHandlerManager : IDisposable
                     {
                         Log.Error("Error disposing handler during Clear", ex);
                     }
-                }
-            }
-            
+
             _handlers.Clear();
             Log.Debug("Cleared all handlers");
         }
@@ -269,17 +276,5 @@ public class ActionHandlerManager : IDisposable
         {
             _semaphore.Release();
         }
-    }
-
-    /// <summary>
-    ///     Dispose of resources
-    /// </summary>
-    public void Dispose()
-    {
-        if (_disposed) return;
-        
-        _semaphore.Dispose();
-        _disposed = true;
-        GC.SuppressFinalize(this);
     }
 }

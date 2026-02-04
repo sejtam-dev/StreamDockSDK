@@ -5,7 +5,7 @@
     // Update duration display when slider changes
     const durationSlider = document.getElementById('duration');
     const durationValue = document.getElementById('durationValue');
-    
+
     durationSlider.addEventListener('input', () => {
         durationValue.textContent = durationSlider.value + ' min';
     });
@@ -16,7 +16,7 @@
         if (isRunningCheckbox) {
             isRunningCheckbox.checked = settings.isRunning || false;
         }
-        
+
         durationValue.textContent = durationSlider.value + ' min';
     });
 

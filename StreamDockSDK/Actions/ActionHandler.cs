@@ -1,4 +1,4 @@
-﻿﻿using System.Text.Json;
+﻿using System.Text.Json;
 
 namespace StreamDockSDK.Actions;
 
@@ -15,8 +15,9 @@ public abstract class ActionHandler(
     protected StreamDockConnection Connection { get; } = connection;
     protected string Context { get; } = context;
     protected Dictionary<string, object>? Settings { get; private set; } = settings;
-    private bool _disposed;
 
+    private bool _disposed;
+    
     /// <summary>
     ///     Dispose of resources
     /// </summary>

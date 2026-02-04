@@ -12,14 +12,16 @@
 <body>
 <div class="sdpi-wrapper">
     <div class="mb-3">
-        <label for="startValue" class="form-label" data-i18n="counter.startValue"></label>
-        <input class="form-control" id="startValue" min="0" data-i18n-placeholder="counter.startValue" placeholder="Initial counter value" type="number" value="0">
+        <label class="form-label" data-i18n="counter.startValue" for="startValue"></label>
+        <input class="form-control" data-i18n-placeholder="counter.startValue" id="startValue" min="0"
+               placeholder="Initial counter value" type="number" value="0">
         <div class="info-text" data-i18n="counter.startValueInfo"></div>
     </div>
 
     <div class="mb-3">
-        <label for="increment" class="form-label" data-i18n="counter.increment"></label>
-        <input class="form-control" id="increment" min="1" data-i18n-placeholder="counter.increment" placeholder="Increment amount" type="number" value="1">
+        <label class="form-label" data-i18n="counter.increment" for="increment"></label>
+        <input class="form-control" data-i18n-placeholder="counter.increment" id="increment" min="1"
+               placeholder="Increment amount" type="number" value="1">
         <div class="info-text" data-i18n="counter.incrementInfo"></div>
     </div>
 
@@ -32,7 +34,7 @@
     <div class="mb-3">
         <div class="form-check">
             <input class="form-check-input" id="resetOnAppear" type="checkbox">
-            <label class="form-check-label" for="resetOnAppear" data-i18n="counter.resetOnAppear"></label>
+            <label class="form-check-label" data-i18n="counter.resetOnAppear" for="resetOnAppear"></label>
         </div>
     </div>
 

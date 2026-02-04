@@ -6,20 +6,17 @@ namespace ExamplePlugin.Actions;
 
 /// <summary>
 ///     Volume Knob action demonstrating encoder (dial) functionality
-///     
 ///     Features:
 ///     - Rotate to adjust volume (0-100)
 ///     - Short press: Toggle mute
 ///     - Long press (>500ms): Reset to default volume
 ///     - Debounced rotation for smooth updates
 ///     - Visual feedback with circular gauge
-///     
 ///     Settings:
 ///     - volume (int): Current volume level (0-100)
 ///     - isMuted (bool): Mute state
 ///     - defaultVolume (int): Volume to reset to on long press (default: 50)
 ///     - longPressThreshold (int): Milliseconds to trigger long press (default: 500)
-///     
 ///     Note: StreamDock sends DialUp immediately after DialDown, so we use Timer
 ///     to measure actual press duration.
 /// </summary>
@@ -27,19 +24,20 @@ namespace ExamplePlugin.Actions;
 public class VolumeKnobHandler : ActionHandler
 {
     private static readonly ILog Logger = LogManager.GetLogger(typeof(VolumeKnobHandler));
-    
+
     private readonly object _lock = new();
     
-    // Volume state
-    private int _volume;
     private bool _isMuted;
     private int _pendingVolumeChange;
-    
+
     // Long press detection
     private DateTime? _pressStartTime;
-    
+
     // Debounce timer for rotation
     private Timer? _updateTimer;
+
+    // Volume state
+    private int _volume;
 
     public VolumeKnobHandler(StreamDockConnection connection, string context, Dictionary<string, object>? settings)
         : base(connection, context, settings)
@@ -50,9 +48,9 @@ public class VolumeKnobHandler : ActionHandler
     public override async Task OnWillAppearAsync()
     {
         Logger.Info($"[VolumeKnob] Action appeared - Context: {Context}");
-        
+
         LoadSettings();
-        
+
         await UpdateDisplayAsync();
     }
 
@@ -63,7 +61,7 @@ public class VolumeKnobHandler : ActionHandler
     {
         _volume = GetSetting("volume", 50);
         _isMuted = GetSetting("isMuted", false);
-        
+
         Logger.Info($"[VolumeKnob] Settings loaded - Volume: {_volume}%, Muted: {_isMuted}");
     }
 
@@ -72,14 +70,14 @@ public class VolumeKnobHandler : ActionHandler
     /// </summary>
     public override async Task OnSettingsChangedAsync(Dictionary<string, object> settings)
     {
-        Logger.Info($"[VolumeKnob] Settings changed");
-        
+        Logger.Info("[VolumeKnob] Settings changed");
+
         // Update internal settings reference
         UpdateSettings(settings);
-        
+
         // Reload settings into state
         LoadSettings();
-        
+
         // Update display with new values
         await UpdateDisplayAsync();
     }
@@ -90,19 +88,19 @@ public class VolumeKnobHandler : ActionHandler
     public override Task OnDialRotateAsync(int ticks, bool pressed)
     {
         Logger.Debug($"[VolumeKnob] Rotate - Ticks: {ticks}, Pressed: {pressed}");
-        
+
         lock (_lock)
         {
             // Accumulate changes
             _pendingVolumeChange += ticks * 2; // 2 units per tick for smoother control
-            
+
             // Cancel existing timer
             _updateTimer?.Dispose();
-            
+
             // Set new debounce timer (30ms for responsive feel)
             _updateTimer = new Timer(_ => ApplyVolumeChange(), null, 30, Timeout.Infinite);
         }
-        
+
         return Task.CompletedTask;
     }
 
@@ -111,13 +109,13 @@ public class VolumeKnobHandler : ActionHandler
     /// </summary>
     public override Task OnDialDownAsync()
     {
-        Logger.Info($"[VolumeKnob] Dial pressed down");
-        
+        Logger.Info("[VolumeKnob] Dial pressed down");
+
         lock (_lock)
         {
             _pressStartTime = DateTime.Now;
         }
-        
+
         return Task.CompletedTask;
     }
 
@@ -127,30 +125,26 @@ public class VolumeKnobHandler : ActionHandler
     public override async Task OnDialUpAsync()
     {
         DateTime? startTime;
-        
+
         lock (_lock)
         {
             startTime = _pressStartTime;
             _pressStartTime = null;
         }
-        
+
         if (startTime == null) return;
-        
+
         var pressDuration = (DateTime.Now - startTime.Value).TotalMilliseconds;
         var longPressThreshold = GetSetting("longPressThreshold", 500);
-        
+
         Logger.Info($"[VolumeKnob] Dial released - Duration: {pressDuration}ms, Threshold: {longPressThreshold}ms");
-        
+
         if (pressDuration >= longPressThreshold)
-        {
             // Long press - reset to default volume
             await HandleLongPress();
-        }
         else
-        {
             // Short press - toggle mute
             await HandleShortPress();
-        }
     }
 
     /// <summary>
@@ -158,10 +152,10 @@ public class VolumeKnobHandler : ActionHandler
     /// </summary>
     private async Task HandleShortPress()
     {
-        Logger.Info($"[VolumeKnob] Short press detected - Toggling mute");
-        
+        Logger.Info("[VolumeKnob] Short press detected - Toggling mute");
+
         _isMuted = !_isMuted;
-        
+
         await SaveStateAsync();
         await UpdateDisplayAsync();
     }
@@ -173,10 +167,10 @@ public class VolumeKnobHandler : ActionHandler
     {
         var defaultVolume = GetSetting("defaultVolume", 50);
         Logger.Info($"[VolumeKnob] Long press detected - Resetting to {defaultVolume}%");
-        
+
         _volume = defaultVolume;
         _isMuted = false;
-        
+
         await SaveStateAsync();
         await UpdateDisplayAsync();
     }
@@ -187,21 +181,21 @@ public class VolumeKnobHandler : ActionHandler
     private void ApplyVolumeChange()
     {
         int change;
-        
+
         lock (_lock)
         {
             if (Math.Abs(_pendingVolumeChange) < 1) return;
-            
+
             change = _pendingVolumeChange;
             _pendingVolumeChange = 0;
         }
-        
+
         // Apply change and clamp
         _volume += change;
         _volume = Math.Clamp(_volume, 0, 100);
-        
+
         Logger.Debug($"[VolumeKnob] Volume changed to {_volume}%");
-        
+
         // Fire and forget update
         _ = Task.Run(async () =>
         {
@@ -221,24 +215,25 @@ public class VolumeKnobHandler : ActionHandler
             // Set title
             var title = _isMuted ? "MUTED" : $"{_volume}%";
             await SetTitleAsync(title);
-            
+
             // Set feedback
             await Connection.SetFeedbackAsync(Context, new Dictionary<string, object>
             {
                 { "value", _volume },
-                { "indicator", new Dictionary<string, object>
+                {
+                    "indicator", new Dictionary<string, object>
                     {
                         { "value", _volume },
                         { "enabled", true }
                     }
                 }
             });
-            
+
             Logger.Debug($"[VolumeKnob] Display updated - Volume: {_volume}%, Muted: {_isMuted}");
         }
         catch (Exception ex)
         {
-            Logger.Error($"[VolumeKnob] Error updating display", ex);
+            Logger.Error("[VolumeKnob] Error updating display", ex);
         }
     }
 
@@ -252,7 +247,7 @@ public class VolumeKnobHandler : ActionHandler
             ["volume"] = _volume,
             ["isMuted"] = _isMuted
         };
-        
+
         await SetSettingsAsync(newSettings);
     }
 
@@ -262,13 +257,12 @@ public class VolumeKnobHandler : ActionHandler
     protected override void Dispose(bool disposing)
     {
         if (disposing)
-        {
             lock (_lock)
             {
                 _updateTimer?.Dispose();
                 _updateTimer = null;
             }
-        }
+
         base.Dispose(disposing);
     }
 }

@@ -6,13 +6,11 @@ namespace ExamplePlugin.Actions;
 
 /// <summary>
 ///     Toggle action that switches between ON/OFF states with dynamic icons
-///     
 ///     Features:
 ///     - Toggle ON/OFF state on key press
 ///     - Dynamic icon changes based on state
 ///     - Customizable ON/OFF labels
 ///     - State persistence across restarts
-///     
 ///     Settings:
 ///     - isOn (bool): Current ON/OFF state
 ///     - onLabel (string): Text to display when ON (default: "ON")
@@ -22,7 +20,7 @@ namespace ExamplePlugin.Actions;
 public class ToggleActionHandler : ActionHandler
 {
     private static readonly ILog Logger = LogManager.GetLogger(typeof(ToggleActionHandler));
-    
+
     /// <summary>
     ///     Current toggle state (true = ON, false = OFF)
     /// </summary>
@@ -52,14 +50,14 @@ public class ToggleActionHandler : ActionHandler
     /// </summary>
     public override async Task OnSettingsChangedAsync(Dictionary<string, object> settings)
     {
-        Logger.Info($"[Toggle] Settings changed");
-        
+        Logger.Info("[Toggle] Settings changed");
+
         // Update internal settings reference
         UpdateSettings(settings);
-        
+
         // Reload state from settings
         _isOn = GetSetting("isOn", false);
-        
+
         // Update display with new labels
         await UpdateDisplayAsync();
     }

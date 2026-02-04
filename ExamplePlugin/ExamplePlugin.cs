@@ -1,4 +1,4 @@
-﻿﻿using System.Reflection;
+﻿using System.Reflection;
 using log4net;
 using StreamDockSDK;
 
@@ -6,22 +6,18 @@ namespace ExamplePlugin;
 
 /// <summary>
 ///     Example StreamDock Plugin demonstrating StreamDockSDK features
-///
 ///     Button Actions:
 ///     - Counter Action: Increment counter with configurable settings
 ///     - Toggle Action: ON/OFF toggle with dynamic icons
-///     
 ///     Encoder (Knob) Actions:
 ///     - Volume Knob: Volume control with mute and reset
-///       • Rotate: Adjust volume (0-100%)
-///       • Short press: Toggle mute
-///       • Long press (>500ms): Reset to default volume
-///     
+///     • Rotate: Adjust volume (0-100%)
+///     • Short press: Toggle mute
+///     • Long press (>500ms): Reset to default volume
 ///     - Timer Knob: Countdown timer (1-60 minutes)
-///       • Rotate: Set duration (only when stopped)
-///       • Short press: Start/Stop timer
-///       • Long press (>500ms): Reset timer
-///     
+///     • Rotate: Set duration (only when stopped)
+///     • Short press: Start/Stop timer
+///     • Long press (>500ms): Reset timer
 ///     Features Demonstrated:
 ///     - Automatic action handler discovery via [Action] attribute
 ///     - Property Inspector integration with JavaScript

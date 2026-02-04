@@ -7,13 +7,11 @@ namespace ExamplePlugin.Actions;
 
 /// <summary>
 ///     Counter action that increments on key press
-///     
 ///     Features:
 ///     - Increment counter on each key press
 ///     - Configurable start value and increment amount
 ///     - Reset button in Property Inspector
 ///     - Display current count as title
-///     
 ///     Settings:
 ///     - startValue (int): Initial counter value (default: 0)
 ///     - increment (int): Amount to add on each press (default: 1)
@@ -50,11 +48,11 @@ public class CounterActionHandler : ActionHandler
     /// </summary>
     public override async Task OnSettingsChangedAsync(Dictionary<string, object> settings)
     {
-        Logger.Info($"[Counter] Settings changed");
-        
+        Logger.Info("[Counter] Settings changed");
+
         // Update internal settings reference
         UpdateSettings(settings);
-        
+
         // Settings changed, but we don't need to reset counter
         // Counter keeps running value, only gets reset on resetOnAppear or reset button
         await UpdateDisplayAsync();
