@@ -1,0 +1,61 @@
+﻿{
+  "counter": {
+    "title": "Counter Settings",
+    "startValue": "Start Value",
+    "startValueInfo": "Counter will start at this value when the action appears",
+    "increment": "Increment By",
+    "incrementInfo": "Amount to add on each button press",
+    "options": "Options",
+    "resetOnAppear": "Reset counter when action appears",
+    "hint": "Click the button to increment the counter. The current count is displayed on the button.",
+    "resetButton": "Reset Counter Now"
+  },
+  "toggle": {
+    "title": "Toggle Settings",
+    "displaySettings": "Display Settings",
+    "onLabel": "ON Label",
+    "onLabelInfo": "Text displayed when toggle is ON",
+    "offLabel": "OFF Label",
+    "offLabelInfo": "Text displayed when toggle is OFF",
+    "options": "Options",
+    "hint": "Click the button to toggle between ON and OFF states. The current state is displayed on the button."
+  },
+  "volumeknob": {
+    "title": "Volume Knob Settings",
+    "currentVolume": "Current Volume",
+    "currentVolumeInfo": "Adjust current volume level",
+    "defaultVolume": "Default Volume (Long Press Reset)",
+    "defaultVolumeInfo": "Volume to reset to on long press",
+    "advanced": "Advanced",
+    "longPressThreshold": "Long Press Threshold",
+    "longPressThresholdInfo": "Duration required to trigger long press",
+    "muted": "Muted",
+    "hint": {
+      "title": "Controls:",
+      "rotate": "Rotate: Adjust volume",
+      "shortPress": "Short press: Toggle mute",
+      "longPress": "Long press: Reset to default"
+    }
+  },
+  "timerknob": {
+    "title": "Timer Knob Settings",
+    "duration": "Timer Duration",
+    "durationInfo": "Set timer duration from 1 to 60 minutes",
+    "status": "Status",
+    "isRunning": "Timer Running",
+    "isRunningInfo": "Timer will resume after restart if it was running",
+    "resetButton": "Reset Timer",
+    "hint": {
+      "title": "Controls:",
+      "rotate": "Rotate: Set duration (1-60 min)",
+      "shortPress": "Short press: Start/Stop timer",
+      "longPress": "Long press: Reset timer",
+      "note": "Note: Rotation only works when timer is stopped."
+    }
+  },
+  "common": {
+    "min": "min",
+    "minutes": "minutes",
+    "seconds": "seconds"
+  }
+}

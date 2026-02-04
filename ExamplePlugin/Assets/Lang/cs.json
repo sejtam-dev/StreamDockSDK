@@ -1,0 +1,61 @@
+﻿{
+  "counter": {
+    "title": "Nastavení čítače",
+    "startValue": "Počáteční hodnota",
+    "startValueInfo": "Čítač začne na této hodnotě když se akce objeví",
+    "increment": "Přírůstek",
+    "incrementInfo": "Hodnota která se přičte při každém stisku",
+    "options": "Možnosti",
+    "resetOnAppear": "Resetovat čítač při zobrazení akce",
+    "hint": "Klikněte na tlačítko pro zvýšení čítače. Aktuální počet je zobrazen na tlačítku.",
+    "resetButton": "Resetovat čítač"
+  },
+  "toggle": {
+    "title": "Nastavení přepínače",
+    "displaySettings": "Nastavení zobrazení",
+    "onLabel": "Text ZAP",
+    "onLabelInfo": "Text zobrazený když je přepínač zapnutý",
+    "offLabel": "Text VYP",
+    "offLabelInfo": "Text zobrazený když je přepínač vypnutý",
+    "options": "Možnosti",
+    "hint": "Klikněte na tlačítko pro přepnutí mezi stavy ZAP a VYP. Aktuální stav je zobrazen na tlačítku."
+  },
+  "volumeknob": {
+    "title": "Nastavení ovladače hlasitosti",
+    "currentVolume": "Aktuální hlasitost",
+    "currentVolumeInfo": "Upravte aktuální úroveň hlasitosti",
+    "defaultVolume": "Výchozí hlasitost (dlouhý stisk reset)",
+    "defaultVolumeInfo": "Hlasitost na kterou se resetuje při dlouhém stisku",
+    "advanced": "Pokročilé",
+    "longPressThreshold": "Práh dlouhého stisku",
+    "longPressThresholdInfo": "Doba potřebná pro spuštění dlouhého stisku",
+    "muted": "Ztlumeno",
+    "hint": {
+      "title": "Ovládání:",
+      "rotate": "Otočit: Upravit hlasitost",
+      "shortPress": "Krátký stisk: Přepnout ztlumení",
+      "longPress": "Dlouhý stisk: Reset na výchozí"
+    }
+  },
+  "timerknob": {
+    "title": "Nastavení časovače",
+    "duration": "Doba trvání",
+    "durationInfo": "Nastavte dobu trvání od 1 do 60 minut",
+    "status": "Stav",
+    "isRunning": "Časovač běží",
+    "isRunningInfo": "Časovač bude pokračovat po restartu pokud běžel",
+    "resetButton": "Resetovat časovač",
+    "hint": {
+      "title": "Ovládání:",
+      "rotate": "Otočit: Nastavit dobu (1-60 min)",
+      "shortPress": "Krátký stisk: Start/Stop časovače",
+      "longPress": "Dlouhý stisk: Reset časovače",
+      "note": "Poznámka: Otáčení funguje pouze když je časovač zastaven."
+    }
+  },
+  "common": {
+    "min": "min",
+    "minutes": "minut",
+    "seconds": "sekund"
+  }
+}

@@ -1,0 +1,61 @@
+﻿{
+  "counter": {
+    "title": "Zähler-Einstellungen",
+    "startValue": "Startwert",
+    "startValueInfo": "Der Zähler beginnt bei diesem Wert, wenn die Aktion erscheint",
+    "increment": "Schrittweite",
+    "incrementInfo": "Wert, der bei jedem Tastendruck hinzugefügt wird",
+    "options": "Optionen",
+    "resetOnAppear": "Zähler beim Erscheinen zurücksetzen",
+    "hint": "Klicken Sie auf die Taste, um den Zähler zu erhöhen. Der aktuelle Wert wird auf der Taste angezeigt.",
+    "resetButton": "Zähler jetzt zurücksetzen"
+  },
+  "toggle": {
+    "title": "Umschalt-Einstellungen",
+    "displaySettings": "Anzeigeeinstellungen",
+    "onLabel": "EIN-Beschriftung",
+    "onLabelInfo": "Text, der angezeigt wird, wenn der Schalter EIN ist",
+    "offLabel": "AUS-Beschriftung",
+    "offLabelInfo": "Text, der angezeigt wird, wenn der Schalter AUS ist",
+    "options": "Optionen",
+    "hint": "Klicken Sie auf die Taste, um zwischen EIN und AUS zu wechseln. Der aktuelle Status wird auf der Taste angezeigt."
+  },
+  "volumeknob": {
+    "title": "Lautstärke-Einstellungen",
+    "currentVolume": "Aktuelle Lautstärke",
+    "currentVolumeInfo": "Aktuelle Lautstärke anpassen",
+    "defaultVolume": "Standard-Lautstärke (Langer Druck Reset)",
+    "defaultVolumeInfo": "Lautstärke, auf die bei langem Druck zurückgesetzt wird",
+    "advanced": "Erweitert",
+    "longPressThreshold": "Schwellenwert für langen Druck",
+    "longPressThresholdInfo": "Dauer, die erforderlich ist, um einen langen Druck auszulösen",
+    "muted": "Stummgeschaltet",
+    "hint": {
+      "title": "Bedienung:",
+      "rotate": "Drehen: Lautstärke anpassen",
+      "shortPress": "Kurzer Druck: Stummschaltung umschalten",
+      "longPress": "Langer Druck: Auf Standard zurücksetzen"
+    }
+  },
+  "timerknob": {
+    "title": "Timer-Einstellungen",
+    "duration": "Timer-Dauer",
+    "durationInfo": "Timer-Dauer von 1 bis 60 Minuten einstellen",
+    "status": "Status",
+    "isRunning": "Timer läuft",
+    "isRunningInfo": "Der Timer wird nach einem Neustart fortgesetzt, wenn er lief",
+    "resetButton": "Timer zurücksetzen",
+    "hint": {
+      "title": "Bedienung:",
+      "rotate": "Drehen: Dauer einstellen (1-60 Min.)",
+      "shortPress": "Kurzer Druck: Timer starten/stoppen",
+      "longPress": "Langer Druck: Timer zurücksetzen",
+      "note": "Hinweis: Drehen funktioniert nur, wenn der Timer gestoppt ist."
+    }
+  },
+  "common": {
+    "min": "Min.",
+    "minutes": "Minuten",
+    "seconds": "Sekunden"
+  }
+}

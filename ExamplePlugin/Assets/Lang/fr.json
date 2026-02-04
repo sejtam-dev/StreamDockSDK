@@ -1,0 +1,61 @@
+﻿{
+  "counter": {
+    "title": "Paramètres du compteur",
+    "startValue": "Valeur de départ",
+    "startValueInfo": "Le compteur commencera à cette valeur lorsque l'action apparaît",
+    "increment": "Incrémenter de",
+    "incrementInfo": "Montant à ajouter à chaque pression sur le bouton",
+    "options": "Options",
+    "resetOnAppear": "Réinitialiser le compteur à l'apparition",
+    "hint": "Cliquez sur le bouton pour incrémenter le compteur. Le compte actuel est affiché sur le bouton.",
+    "resetButton": "Réinitialiser le compteur maintenant"
+  },
+  "toggle": {
+    "title": "Paramètres de l'interrupteur",
+    "displaySettings": "Paramètres d'affichage",
+    "onLabel": "Étiquette ACTIVÉ",
+    "onLabelInfo": "Texte affiché lorsque l'interrupteur est ACTIVÉ",
+    "offLabel": "Étiquette DÉSACTIVÉ",
+    "offLabelInfo": "Texte affiché lorsque l'interrupteur est DÉSACTIVÉ",
+    "options": "Options",
+    "hint": "Cliquez sur le bouton pour basculer entre les états ACTIVÉ et DÉSACTIVÉ. L'état actuel est affiché sur le bouton."
+  },
+  "volumeknob": {
+    "title": "Paramètres du contrôle de volume",
+    "currentVolume": "Volume actuel",
+    "currentVolumeInfo": "Ajuster le niveau de volume actuel",
+    "defaultVolume": "Volume par défaut (pression longue pour réinitialiser)",
+    "defaultVolumeInfo": "Volume sur lequel réinitialiser lors d'une pression longue",
+    "advanced": "Avancé",
+    "longPressThreshold": "Seuil de pression longue",
+    "longPressThresholdInfo": "Durée requise pour déclencher une pression longue",
+    "muted": "Muet",
+    "hint": {
+      "title": "Commandes:",
+      "rotate": "Tourner: Ajuster le volume",
+      "shortPress": "Pression courte: Basculer le mode muet",
+      "longPress": "Pression longue: Réinitialiser par défaut"
+    }
+  },
+  "timerknob": {
+    "title": "Paramètres du minuteur",
+    "duration": "Durée du minuteur",
+    "durationInfo": "Définir la durée du minuteur de 1 à 60 minutes",
+    "status": "Statut",
+    "isRunning": "Minuteur en cours d'exécution",
+    "isRunningInfo": "Le minuteur reprendra après le redémarrage s'il était en cours d'exécution",
+    "resetButton": "Réinitialiser le minuteur",
+    "hint": {
+      "title": "Commandes:",
+      "rotate": "Tourner: Définir la durée (1-60 min)",
+      "shortPress": "Pression courte: Démarrer/Arrêter le minuteur",
+      "longPress": "Pression longue: Réinitialiser le minuteur",
+      "note": "Remarque: La rotation ne fonctionne que lorsque le minuteur est arrêté."
+    }
+  },
+  "common": {
+    "min": "min",
+    "minutes": "minutes",
+    "seconds": "secondes"
+  }
+}

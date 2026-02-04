@@ -1,0 +1,175 @@
+﻿/* StreamDock Property Inspector Styles */
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    padding: 0;
+    margin: 0;
+    background-color: #2d2d2d;
+    color: #fff;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+.sdpi-wrapper {
+    padding: 16px;
+}
+
+/* Form Controls */
+.form-select,
+.form-control,
+.btn {
+    background-color: #3a3a3a;
+    border-color: #4a4a4a;
+    color: #fff;
+}
+
+.form-select:focus,
+.form-control:focus {
+    background-color: #3a3a3a;
+    border-color: #666;
+    color: #fff;
+    box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.1);
+}
+
+.form-control::placeholder {
+    color: #999;
+}
+
+/* Checkboxes */
+.form-check-input {
+    background-color: #3a3a3a;
+    border-color: #4a4a4a;
+}
+
+.form-check-input:checked {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+.form-check-input:focus {
+    border-color: #666;
+    box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.1);
+}
+
+/* Labels */
+.form-label {
+    color: #ddd;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+/* Info text */
+.info-text {
+    font-size: 11px;
+    color: #999999;
+    margin-top: 5px;
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+.btn-primary:hover {
+    background-color: #0b5ed7;
+    border-color: #0a58ca;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.btn-danger:hover {
+    background-color: #bb2d3b;
+    border-color: #b02a37;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.btn-secondary:hover {
+    background-color: #5c636a;
+    border-color: #565e64;
+}
+
+/* Select dropdown arrow */
+.form-select {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%237c7c7c' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+}
+
+/* Range slider */
+.form-range {
+    background-color: transparent;
+}
+
+.form-range::-webkit-slider-thumb {
+    background-color: #0d6efd;
+}
+
+.form-range::-moz-range-thumb {
+    background-color: #0d6efd;
+}
+
+.form-range::-webkit-slider-runnable-track {
+    background-color: #4a4a4a;
+}
+
+.form-range::-moz-range-track {
+    background-color: #4a4a4a;
+}
+
+/* Section dividers */
+.section-divider {
+    display: flex;
+    align-items: center;
+    margin: 24px 0 16px 0;
+}
+
+.section-divider .line {
+    flex-grow: 1;
+    border-top: 1px solid #4a4a4a;
+}
+
+.section-divider .text {
+    margin: 0 12px;
+    color: #999;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+}
+
+/* Tooltips and hints */
+.hint {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background-color: #3a3a3a;
+    border-radius: 4px;
+    font-size: 12px;
+    color: #ddd;
+}
+
+.hint i {
+    color: #0d6efd;
+}
+
+/* Collapsible sections */
+.collapse-trigger {
+    cursor: pointer;
+    color: #0d6efd;
+    text-decoration: none;
+}
+
+.collapse-trigger:hover {
+    color: #0b5ed7;
+    text-decoration: underline;
+}
+

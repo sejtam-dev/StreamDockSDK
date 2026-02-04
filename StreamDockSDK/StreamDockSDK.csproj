@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace>StreamDockSDK</RootNamespace>
+        
+        <PackageId>StreamDockSDK</PackageId>
+        <Version>1.0.0</Version>
+        <Authors>Sejtam_</Authors>
+        <RepositoryUrl>https://github.com/sejtam-dev/SteamDockSDK</RepositoryUrl>
+        <PackageProjectUrl>https://github.com/sejtam-dev/SteamDockSDK</PackageProjectUrl>
+        <PackageTags>StreamDock SDK Plugin Development Hardware Controller Automation</PackageTags>
+        <Description>
+            C# SDK for StreamDock plugins development.
+        </Description>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="log4net" Version="3.2.0"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <!-- Embed log4net.config as embedded resource for fallback -->
+        <EmbeddedResource Include="Assets\log4net.config"/>
+    </ItemGroup>
+
+</Project>

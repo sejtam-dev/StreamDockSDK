@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35806.99 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamDockSDK", "StreamDockSDK\StreamDockSDK.csproj", "{C0113E10-C301-4F3E-8D72-FE60F2FFBF5B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExamplePlugin", "ExamplePlugin\ExamplePlugin.csproj", "{F147B32B-9A11-4A6E-A561-2DF5E42E8897}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C0113E10-C301-4F3E-8D72-FE60F2FFBF5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0113E10-C301-4F3E-8D72-FE60F2FFBF5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0113E10-C301-4F3E-8D72-FE60F2FFBF5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0113E10-C301-4F3E-8D72-FE60F2FFBF5B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F147B32B-9A11-4A6E-A561-2DF5E42E8897}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F147B32B-9A11-4A6E-A561-2DF5E42E8897}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F147B32B-9A11-4A6E-A561-2DF5E42E8897}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F147B32B-9A11-4A6E-A561-2DF5E42E8897}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {448C24EA-9AD0-417D-9B0B-E135A908F794}
+	EndGlobalSection
+EndGlobal

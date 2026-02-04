@@ -1,0 +1,61 @@
+﻿{
+  "counter": {
+    "title": "计数器设置",
+    "startValue": "起始值",
+    "startValueInfo": "当动作出现时，计数器将从此值开始",
+    "increment": "增量",
+    "incrementInfo": "每次按下按钮时要添加的数量",
+    "options": "选项",
+    "resetOnAppear": "出现时重置计数器",
+    "hint": "点击按钮以增加计数器。当前计数显示在按钮上。",
+    "resetButton": "立即重置计数器"
+  },
+  "toggle": {
+    "title": "切换设置",
+    "displaySettings": "显示设置",
+    "onLabel": "开启标签",
+    "onLabelInfo": "切换开启时显示的文本",
+    "offLabel": "关闭标签",
+    "offLabelInfo": "切换关闭时显示的文本",
+    "options": "选项",
+    "hint": "点击按钮在开启和关闭状态之间切换。当前状态显示在按钮上。"
+  },
+  "volumeknob": {
+    "title": "音量旋钮设置",
+    "currentVolume": "当前音量",
+    "currentVolumeInfo": "调整当前音量级别",
+    "defaultVolume": "默认音量（长按重置）",
+    "defaultVolumeInfo": "长按时要重置到的音量",
+    "advanced": "高级",
+    "longPressThreshold": "长按阈值",
+    "longPressThresholdInfo": "触发长按所需的持续时间",
+    "muted": "静音",
+    "hint": {
+      "title": "控制方式：",
+      "rotate": "旋转：调整音量",
+      "shortPress": "短按：切换静音",
+      "longPress": "长按：重置为默认值"
+    }
+  },
+  "timerknob": {
+    "title": "定时器旋钮设置",
+    "duration": "定时器持续时间",
+    "durationInfo": "设置定时器持续时间（1-60分钟）",
+    "status": "状态",
+    "isRunning": "定时器运行中",
+    "isRunningInfo": "如果定时器正在运行，重启后将继续",
+    "resetButton": "重置定时器",
+    "hint": {
+      "title": "控制方式：",
+      "rotate": "旋转：设置持续时间（1-60分钟）",
+      "shortPress": "短按：启动/停止定时器",
+      "longPress": "长按：重置定时器",
+      "note": "注意：只有在定时器停止时才能旋转。"
+    }
+  },
+  "common": {
+    "min": "分钟",
+    "minutes": "分钟",
+    "seconds": "秒"
+  }
+}

@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Toggle Settings</title>
+    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="Common/styles.css" rel="stylesheet">
+    <script src="Common/sdpi.js"></script>
+</head>
+<body>
+<div class="sdpi-wrapper">
+    <div class="section-divider">
+        <div class="line"></div>
+        <span class="text" data-i18n="toggle.displaySettings"></span>
+        <div class="line"></div>
+    </div>
+
+    <div class="mb-3">
+        <label for="onLabel" class="form-label" data-i18n="toggle.onLabel"></label>
+        <input class="form-control" id="onLabel" data-i18n-placeholder="toggle.onLabel" placeholder="Text when ON" type="text" value="ON">
+        <div class="info-text" data-i18n="toggle.onLabelInfo"></div>
+    </div>
+
+    <div class="mb-3">
+        <label for="offLabel" class="form-label" data-i18n="toggle.offLabel"></label>
+        <input class="form-control" id="offLabel" data-i18n-placeholder="toggle.offLabel" placeholder="Text when OFF" type="text" value="OFF">
+        <div class="info-text" data-i18n="toggle.offLabelInfo"></div>
+    </div>
+
+    <div class="section-divider">
+        <div class="line"></div>
+        <span class="text" data-i18n="toggle.options"></span>
+        <div class="line"></div>
+    </div>
+
+    <div class="hint mb-3">
+        <i class="bi bi-info-circle-fill"></i>
+        <span data-i18n="toggle.hint"></span>
+    </div>
+</div>
+
+<script crossorigin="anonymous"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="toggle.js"></script>
+</body>
+</html>
+

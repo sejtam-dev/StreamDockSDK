@@ -1,0 +1,61 @@
+﻿{
+  "counter": {
+    "title": "Configuración del contador",
+    "startValue": "Valor inicial",
+    "startValueInfo": "El contador comenzará en este valor cuando aparezca la acción",
+    "increment": "Incrementar por",
+    "incrementInfo": "Cantidad a agregar en cada pulsación de botón",
+    "options": "Opciones",
+    "resetOnAppear": "Restablecer contador al aparecer",
+    "hint": "Haga clic en el botón para incrementar el contador. El recuento actual se muestra en el botón.",
+    "resetButton": "Restablecer contador ahora"
+  },
+  "toggle": {
+    "title": "Configuración del interruptor",
+    "displaySettings": "Configuración de visualización",
+    "onLabel": "Etiqueta ENCENDIDO",
+    "onLabelInfo": "Texto que se muestra cuando el interruptor está ENCENDIDO",
+    "offLabel": "Etiqueta APAGADO",
+    "offLabelInfo": "Texto que se muestra cuando el interruptor está APAGADO",
+    "options": "Opciones",
+    "hint": "Haga clic en el botón para alternar entre estados ENCENDIDO y APAGADO. El estado actual se muestra en el botón."
+  },
+  "volumeknob": {
+    "title": "Configuración del control de volumen",
+    "currentVolume": "Volumen actual",
+    "currentVolumeInfo": "Ajustar el nivel de volumen actual",
+    "defaultVolume": "Volumen predeterminado (pulsación larga para restablecer)",
+    "defaultVolumeInfo": "Volumen al que se restablecerá con una pulsación larga",
+    "advanced": "Avanzado",
+    "longPressThreshold": "Umbral de pulsación larga",
+    "longPressThresholdInfo": "Duración requerida para activar una pulsación larga",
+    "muted": "Silenciado",
+    "hint": {
+      "title": "Controles:",
+      "rotate": "Girar: Ajustar volumen",
+      "shortPress": "Pulsación corta: Alternar silencio",
+      "longPress": "Pulsación larga: Restablecer al predeterminado"
+    }
+  },
+  "timerknob": {
+    "title": "Configuración del temporizador",
+    "duration": "Duración del temporizador",
+    "durationInfo": "Establecer duración del temporizador de 1 a 60 minutos",
+    "status": "Estado",
+    "isRunning": "Temporizador en ejecución",
+    "isRunningInfo": "El temporizador se reanudará después del reinicio si estaba en ejecución",
+    "resetButton": "Restablecer temporizador",
+    "hint": {
+      "title": "Controles:",
+      "rotate": "Girar: Establecer duración (1-60 min)",
+      "shortPress": "Pulsación corta: Iniciar/Detener temporizador",
+      "longPress": "Pulsación larga: Restablecer temporizador",
+      "note": "Nota: La rotación solo funciona cuando el temporizador está detenido."
+    }
+  },
+  "common": {
+    "min": "min",
+    "minutes": "minutos",
+    "seconds": "segundos"
+  }
+}

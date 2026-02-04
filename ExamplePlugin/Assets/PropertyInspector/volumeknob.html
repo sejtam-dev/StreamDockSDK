@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Volume Knob Settings</title>
+    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="Common/styles.css" rel="stylesheet">
+    <script src="Common/sdpi.js"></script>
+</head>
+<body>
+<div class="sdpi-wrapper">
+    <div class="mb-3">
+        <label for="volume" class="form-label" data-i18n="volumeknob.currentVolume"></label>
+        <div class="d-flex align-items-center">
+            <input type="range" class="form-range flex-grow-1" id="volume" min="0" max="100" value="50">
+            <span class="ms-3 fw-bold" id="volumeValue">50%</span>
+        </div>
+        <div class="info-text" data-i18n="volumeknob.currentVolumeInfo"></div>
+    </div>
+
+    <div class="mb-3">
+        <label for="defaultVolume" class="form-label" data-i18n="volumeknob.defaultVolume"></label>
+        <div class="d-flex align-items-center">
+            <input type="range" class="form-range flex-grow-1" id="defaultVolume" min="0" max="100" value="50">
+            <span class="ms-3" id="defaultVolumeValue">50%</span>
+        </div>
+        <div class="info-text" data-i18n="volumeknob.defaultVolumeInfo"></div>
+    </div>
+
+    <div class="section-divider">
+        <div class="line"></div>
+        <span class="text" data-i18n="volumeknob.advanced"></span>
+        <div class="line"></div>
+    </div>
+
+    <div class="mb-3">
+        <label for="longPressThreshold" class="form-label" data-i18n="volumeknob.longPressThreshold"></label>
+        <div class="d-flex align-items-center">
+            <input type="range" class="form-range flex-grow-1" id="longPressThreshold" min="300" max="1000" step="50" value="500">
+            <span class="ms-3" id="thresholdValue">500ms</span>
+        </div>
+        <div class="info-text" data-i18n="volumeknob.longPressThresholdInfo"></div>
+    </div>
+
+    <div class="mb-3">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="isMuted">
+            <label class="form-check-label" for="isMuted" data-i18n="volumeknob.muted"></label>
+        </div>
+    </div>
+
+    <div class="hint mb-3">
+        <i class="bi bi-info-circle-fill"></i>
+        <div>
+            <strong data-i18n="volumeknob.hint.title"></strong><br>
+            • <span data-i18n="volumeknob.hint.rotate"></span><br>
+            • <span data-i18n="volumeknob.hint.shortPress"></span><br>
+            • <span data-i18n="volumeknob.hint.longPress"></span>
+        </div>
+    </div>
+</div>
+
+<script crossorigin="anonymous"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="volumeknob.js"></script>
+</body>
+</html>
