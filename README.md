@@ -2,23 +2,10 @@
 
 <h1>StreamDock SDK (C#)</h1>
 
-<!-- 🏷️ Badges (fill in later) -->
-
-<a href="#">
-  <img alt="License" src="https://img.shields.io/badge/license-MIT-blue.svg" />
-</a>
-<a href="#">
-  <img alt="CI" src="https://img.shields.io/badge/CI-TODO-lightgrey.svg" />
-</a>
-<a href="#">
-  <img alt="NuGet" src="https://img.shields.io/badge/NuGet-TODO-lightgrey.svg" />
-</a>
-<a href="#">
-  <img alt="Docs" src="https://img.shields.io/badge/docs-coming_soon-lightgrey.svg" />
-</a>
-
-<br/>
-<br/>
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+[![CI](https://img.shields.io/badge/CI-TODO-lightgrey.svg)](#)
+[![NuGet](https://img.shields.io/badge/NuGet-TODO-lightgrey.svg)](#)
+[![Docs](https://img.shields.io/badge/docs-coming_soon-lightgrey.svg)](#)
 
 <strong>Build StreamDock plugins in C# — fast, clean, and async-first.</strong> 🚀
 
