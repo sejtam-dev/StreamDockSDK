@@ -2,6 +2,7 @@
 using log4net;
 using StreamDockSDK;
 using StreamDockSDK.Actions;
+using StreamDockSDK.Attributes;
 
 namespace ExamplePlugin.Actions;
 
@@ -17,7 +18,18 @@ namespace ExamplePlugin.Actions;
 ///     - increment (int): Amount to add on each press (default: 1)
 ///     - resetOnAppear (bool): Reset to start value when action appears
 /// </summary>
-[Action("com.example.counter")]
+[SDAction(
+    Uuid = "counter",
+    Name = "Counter",
+    Icon = "Assets/Icons/counter.png",
+    Tooltip = "Simple counter that increments on press",
+    UserTitleEnabled = false,
+    Controllers = [
+        "Keypad"
+    ],
+    PropertyInspectorPath = "Assets/PropertyInspector/counter.html"
+)]
+[SDActionState(Image = "Assets/Icons/counter.png")]
 public class CounterActionHandler : ActionHandler
 {
     private static readonly ILog Logger = LogManager.GetLogger(typeof(CounterActionHandler));

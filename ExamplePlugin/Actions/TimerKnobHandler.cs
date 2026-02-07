@@ -2,6 +2,7 @@
 using log4net;
 using StreamDockSDK;
 using StreamDockSDK.Actions;
+using StreamDockSDK.Attributes;
 
 namespace ExamplePlugin.Actions;
 
@@ -18,7 +19,18 @@ namespace ExamplePlugin.Actions;
 ///     - isRunning (bool): Timer running state
 ///     - startTime (string): ISO timestamp when timer started
 /// </summary>
-[Action("com.example.timerknob")]
+[SDAction(
+    Uuid = "timerknob",
+    Name = "Timer Knob",
+    Icon = "Assets/Icons/timer.png",
+    Tooltip = "Countdown timer (1-60 minutes)",
+    UserTitleEnabled = false,
+    Controllers = [
+        "Knob"
+    ],
+    PropertyInspectorPath = "Assets/PropertyInspector/timerknob.html"
+)]
+[SDActionState(Image = "Assets/Icons/timer.png")]
 public class TimerKnobHandler : ActionHandler
 {
     private static readonly ILog Logger = LogManager.GetLogger(typeof(TimerKnobHandler));

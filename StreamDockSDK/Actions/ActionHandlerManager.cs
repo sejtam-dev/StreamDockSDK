@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using log4net;
+using StreamDockSDK.Attributes;
 
 namespace StreamDockSDK.Actions;
 
@@ -62,7 +63,7 @@ public class ActionHandlerManager : IDisposable
 
     /// <summary>
     ///     Register a handler type with its action ID
-    ///     Handler must have a constructor: (StreamDockConnection, string, Dictionary<string, object>?)
+    ///     Handler must have a constructor: (StreamDockConnection, string, Dictionary&lt;string, object&gt;?)
     /// </summary>
     /// <typeparam name="T">Handler type</typeparam>
     /// <param name="actionId">Action identifier</param>
@@ -82,27 +83,59 @@ public class ActionHandlerManager : IDisposable
 
     /// <summary>
     ///     Automatically discover and register handlers in an assembly
-    ///     Looks for classes with [Action("actionId")] attribute
+    ///     Looks for classes with [SDAction] attribute and constructs full action ID with PackageId
     /// </summary>
     /// <param name="assembly">Assembly to scan (null = calling assembly)</param>
     public void DiscoverHandlers(Assembly? assembly = null)
     {
         assembly ??= Assembly.GetCallingAssembly();
 
-        var handlerTypes = assembly.GetTypes()
+        Log.Debug($"Discovering handlers in assembly: {assembly.FullName}");
+        
+        // Find plugin class with [SDPlugin] attribute to get PackageId
+        var allTypes = assembly.GetTypes();
+        Log.Debug($"Total types in assembly: {allTypes.Length}");
+        
+        var pluginType = allTypes
+            .FirstOrDefault(t => t.GetCustomAttribute<SDPluginAttribute>() != null);
+        
+        if (pluginType != null)
+        {
+            Log.Debug($"Found plugin type: {pluginType.FullName}");
+        }
+        
+        var packageId = pluginType?.GetCustomAttribute<SDPluginAttribute>()?.PackageId;
+
+        if (string.IsNullOrEmpty(packageId))
+        {
+            Log.Warn("No [SDPlugin] attribute found in assembly or PackageId is empty. Handlers will be registered without PackageId prefix.");
+        }
+        else
+        {
+            Log.Info($"Found plugin with PackageId: {packageId}");
+        }
+
+        var handlerTypes = allTypes
             .Where(t => t.IsClass && !t.IsAbstract && t.IsSubclassOf(typeof(ActionHandler)))
             .ToList();
+        
+        Log.Debug($"Found {handlerTypes.Count} handler types");
 
         _semaphore.Wait();
         try
         {
             foreach (var type in handlerTypes)
             {
-                var attributes = type.GetCustomAttributes<ActionAttribute>();
+                var attributes = type.GetCustomAttributes<SDActionAttribute>();
                 foreach (var attr in attributes)
                 {
-                    _handlerTypes[attr.ActionId] = type;
-                    Log.Info($"Discovered handler {type.Name} for action: {attr.ActionId}");
+                    // Construct full action ID: packageId.uuid
+                    var fullActionId = string.IsNullOrEmpty(packageId) 
+                        ? attr.Uuid 
+                        : $"{packageId}.{attr.Uuid}";
+                    
+                    _handlerTypes[fullActionId] = type;
+                    Log.Info($"Discovered handler {type.Name} for action: {fullActionId}");
                 }
             }
 

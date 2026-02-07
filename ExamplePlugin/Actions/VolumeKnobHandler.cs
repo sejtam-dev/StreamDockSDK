@@ -1,6 +1,7 @@
 ﻿using log4net;
 using StreamDockSDK;
 using StreamDockSDK.Actions;
+using StreamDockSDK.Attributes;
 
 namespace ExamplePlugin.Actions;
 
@@ -20,7 +21,16 @@ namespace ExamplePlugin.Actions;
 ///     Note: StreamDock sends DialUp immediately after DialDown, so we use Timer
 ///     to measure actual press duration.
 /// </summary>
-[Action("com.example.volumeknob")]
+[SDAction(
+    Uuid = "volumeknob",
+    Name = "Volume Knob",
+    Icon = "Assets/Icons/volume.png",
+    Tooltip = "Volume control with mute (short press) and reset (long press)",
+    UserTitleEnabled = false,
+    Controllers = ["Knob"],
+    PropertyInspectorPath = "Assets/PropertyInspector/volumeknob.html"
+)]
+[SDActionState(Image = "Assets/Icons/volume.png")]
 public class VolumeKnobHandler : ActionHandler
 {
     private static readonly ILog Logger = LogManager.GetLogger(typeof(VolumeKnobHandler));

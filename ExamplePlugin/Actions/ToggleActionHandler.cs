@@ -1,6 +1,7 @@
 ﻿using log4net;
 using StreamDockSDK;
 using StreamDockSDK.Actions;
+using StreamDockSDK.Attributes;
 
 namespace ExamplePlugin.Actions;
 
@@ -16,7 +17,19 @@ namespace ExamplePlugin.Actions;
 ///     - onLabel (string): Text to display when ON (default: "ON")
 ///     - offLabel (string): Text to display when OFF (default: "OFF")
 /// </summary>
-[Action("com.example.toggle")]
+[SDAction(
+    Uuid = "toggle",
+    Name = "Toggle",
+    Icon = "Assets/Icons/toggle-off.png",
+    Tooltip = "Toggle between ON and OFF states",
+    UserTitleEnabled = false,
+    Controllers = [
+        "Keypad"
+    ],
+    PropertyInspectorPath = "Assets/PropertyInspector/toggle.html"
+)]
+[SDActionState(Image = "Assets/Icons/toggle-off.png")]
+[SDActionState(Image = "Assets/Icons/toggle-on.png")]
 public class ToggleActionHandler : ActionHandler
 {
     private static readonly ILog Logger = LogManager.GetLogger(typeof(ToggleActionHandler));

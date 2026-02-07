@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        
+        <!-- .NET Tool configuration -->
+        <PackAsTool>true</PackAsTool>
+        <ToolCommandName>streamdock-manifestbuilder</ToolCommandName>
+        
+        <PackageId>StreamDockSDK.ManifestBuilder</PackageId>
+        <Version>1.0.0</Version>
+        <Authors>Sejtam_</Authors>
+        <RepositoryUrl>https://github.com/sejtam-dev/SteamDockSDK</RepositoryUrl>
+        <PackageProjectUrl>https://github.com/sejtam-dev/SteamDockSDK</PackageProjectUrl>
+        <PackageTags>StreamDock SDK ManifestBuilder Tool Build</PackageTags>
+        <Description>
+            Manifest generator tool for StreamDock plugins. Automatically generates manifest.json from C# attributes.
+        </Description>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="System.Text.Json" Version="10.0.2" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <ProjectReference Include="..\StreamDockSDK.Attributes\StreamDockSDK.Attributes.csproj" />
+    </ItemGroup>
+
+</Project>

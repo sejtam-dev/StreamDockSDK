@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using log4net;
 using StreamDockSDK;
+using StreamDockSDK.Attributes;
 
 namespace ExamplePlugin;
 
@@ -26,6 +27,20 @@ namespace ExamplePlugin;
 ///     - Thread-safe Timer disposal
 ///     - State persistence across restarts
 /// </summary>
+[SDPlugin(
+    PackageId = "com.example.streamdockplugin",
+    SdkVersion = 1,
+    Name = "Example Plugin",
+    Version = "1.0.0",
+    Author = "Sejtam_",
+    Description = "Example StreamDock plugin demonstrating StreamDockSDK features",
+    Category = "Examples",
+    CategoryIcon = "Assets/Icons/plugin.png",
+    Icon = "Assets/Icons/plugin.png",
+    CodePath = "ExamplePlugin.exe",
+    MinimumVersionOfSoftware = "1.0.0"
+)]
+[SDPluginOS(Platform = "windows", MinimumVersion = "10")]
 public class ExamplePlugin : StreamDockPlugin
 {
     private static readonly ILog Log = LogManager.GetLogger(typeof(ExamplePlugin));
@@ -47,12 +62,10 @@ public class ExamplePlugin : StreamDockPlugin
     /// </summary>
     private void OnConnected(object? sender, EventArgs e)
     {
-        Log.Info("Example Plugin connected to StreamDock");
-
-        // Automatically discover and register action handlers with [Action] attribute
+        // Automatically discover and register action handlers
         HandlerManager.DiscoverHandlers(Assembly.GetExecutingAssembly());
-
-        Log.Info("Action handlers discovered and registered");
+        
+        Log.Info("Example Plugin connected to StreamDock");
     }
 
     /// <summary>

@@ -14,10 +14,14 @@ $ProjectRoot = Split-Path -Parent $ScriptDir
 Write-Host "Installing StreamDock Plugin..." -ForegroundColor Cyan
 Write-Host "Project: $ProjectRoot" -ForegroundColor Gray
 
-# Read manifest.json
-$ManifestPath = Join-Path $ProjectRoot "manifest.json"
+# Build path
+$BuildPath = Join-Path $ProjectRoot "bin\$Configuration\net9.0"
+
+# Read manifest.json from build output
+$ManifestPath = Join-Path $BuildPath "manifest.json"
 if (-not (Test-Path $ManifestPath)) {
     Write-Host "ERROR: manifest.json not found at: $ManifestPath" -ForegroundColor Red
+    Write-Host "Run './Scripts/Build.ps1' first to generate manifest.json" -ForegroundColor Yellow
     exit 1
 }
 
@@ -49,8 +53,6 @@ try {
     exit 1
 }
 
-# Build path
-$BuildPath = Join-Path $ProjectRoot "bin\$Configuration\net9.0"
 
 # Check if build exists
 if (-not (Test-Path $BuildPath)) {

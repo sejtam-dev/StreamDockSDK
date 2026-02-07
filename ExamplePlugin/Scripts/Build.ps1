@@ -1,7 +1,4 @@
-﻿# Universal StreamDock Plugin Build Script
-# Reads manifest.json to get plugin information
-
-param(
+﻿param(
     [string]$Configuration = "Release"
 )
 
@@ -13,23 +10,6 @@ $ProjectRoot = Split-Path -Parent $ScriptDir
 
 Write-Host "Building StreamDock Plugin..." -ForegroundColor Cyan
 Write-Host "Project: $ProjectRoot" -ForegroundColor Gray
-
-# Read manifest.json
-$ManifestPath = Join-Path $ProjectRoot "manifest.json"
-if (-not (Test-Path $ManifestPath)) {
-    Write-Host "ERROR: manifest.json not found at: $ManifestPath" -ForegroundColor Red
-    exit 1
-}
-
-try {
-    $Manifest = Get-Content $ManifestPath -Raw | ConvertFrom-Json
-    $PluginName = $Manifest.Name
-    $PluginVersion = $Manifest.Version
-    Write-Host "Plugin: $PluginName v$PluginVersion" -ForegroundColor Green
-} catch {
-    Write-Host "ERROR: Failed to parse manifest.json: $_" -ForegroundColor Red
-    exit 1
-}
 
 # Change to project root
 Push-Location $ProjectRoot

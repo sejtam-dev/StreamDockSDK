@@ -9,18 +9,29 @@
 
     <ItemGroup>
         <ProjectReference Include="..\StreamDockSDK\StreamDockSDK.csproj"/>
+        <ProjectReference Include="..\StreamDockSDK.ManifestBuilder\StreamDockSDK.ManifestBuilder.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-        <None Update="log4net.config">
+        <!-- Copy log4net.config from Assets to root output folder -->
+        <Content Include="Assets\log4net.config">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-        <None Update="manifest.json">
+            <Link>log4net.config</Link>
+        </Content>
+        
+        <!-- Copy manifest.json from Assets to root output folder if it exists (has priority over autogeneration) -->
+        <Content Include="Assets\manifest.json" Condition="Exists('Assets\manifest.json')">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-        <None Update="Assets\**\*">
+            <Link>manifest.json</Link>
+        </Content>
+        
+        <!-- Copy all other files from Assets folder recursively (excluding log4net.config and manifest.json) -->
+        <Content Include="Assets\**\*" Exclude="Assets\log4net.config;Assets\manifest.json">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
+        </Content>
     </ItemGroup>
+
+    <!-- Import StreamDockSDK targets for automatic manifest generation -->
+    <Import Project="..\StreamDockSDK\Build\StreamDockSDK.targets" Condition="Exists('..\StreamDockSDK\Build\StreamDockSDK.targets')" />
 
 </Project>
