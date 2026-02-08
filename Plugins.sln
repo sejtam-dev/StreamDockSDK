@@ -5,7 +5,7 @@ VisualStudioVersion = 17.13.35806.99
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamDockSDK", "StreamDockSDK\StreamDockSDK.csproj", "{C0113E10-C301-4F3E-8D72-FE60F2FFBF5B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExamplePlugin", "ExamplePlugin\ExamplePlugin.csproj", "{F147B32B-9A11-4A6E-A561-2DF5E42E8897}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamDockSDK.ExamplePlugin", "StreamDockSDK.ExamplePlugin\StreamDockSDK.ExamplePlugin.csproj", "{F147B32B-9A11-4A6E-A561-2DF5E42E8897}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamDockSDK.ManifestBuilder", "StreamDockSDK.ManifestBuilder\StreamDockSDK.ManifestBuilder.csproj", "{80CB2794-7FDB-4E96-A253-F7B0E45D94CC}"
 EndProject
