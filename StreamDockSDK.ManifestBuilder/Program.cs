@@ -172,7 +172,8 @@ public class Program
         if (appsToMonitorAttrs.Count > 0)
         {
             var appsDict = new Dictionary<string, object>();
-            foreach (var attr in appsToMonitorAttrs) appsDict[attr.OS] = attr.Applications;
+            foreach (var attr in appsToMonitorAttrs) 
+                appsDict[attr.OS] = attr.Applications;
             manifest["ApplicationsToMonitor"] = appsDict;
         }
 

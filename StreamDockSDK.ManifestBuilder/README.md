@@ -132,14 +132,14 @@ Operating system requirement (can be applied multiple times):
 
 Monitor application launch/termination events (can be applied multiple times):
 
-| Property       | Required | Description                             |
-|----------------|----------|-----------------------------------------|
-| `OS`           | ✅        | "windows" or "mac"                      |
-| `Applications` | ✅        | Comma-separated list of apps to monitor |
+| Property       | Required | Description                                                                       |
+|----------------|----------|-----------------------------------------------------------------------------------|
+| `OS`           | ✅        | "windows" or "mac"                                                                |
+| `Applications` | ✅        | Array of applications to monitor (bundle IDs for macOS, executables for Windows) |
 
 ```csharp
-[SDPluginApplicationsToMonitor(OS = "windows", Applications = "notepad.exe,calc.exe")]
-[SDPluginApplicationsToMonitor(OS = "mac", Applications = "com.apple.Safari,com.apple.Mail")]
+[SDPluginApplicationsToMonitor(OS = "windows", Applications = ["notepad.exe", "calc.exe"])]
+[SDPluginApplicationsToMonitor(OS = "mac", Applications = ["com.apple.Safari", "com.apple.Mail"])]
 ```
 
 ### SDAction

@@ -16,10 +16,10 @@ public class SDPluginApplicationsToMonitorAttribute : Attribute
     public required string OS { get; set; }
 
     /// <summary>
-    ///     Comma-separated list of applications to monitor.
+    ///     Array of applications to monitor.
     ///     For macOS: bundle identifiers (e.g., "com.apple.mail")
     ///     For Windows: executable names (e.g., "notepad.exe")
     /// </summary>
     [JsonPropertyName("Applications")]
-    public required string Applications { get; set; }
+    public required string[] Applications { get; set; }
 }
