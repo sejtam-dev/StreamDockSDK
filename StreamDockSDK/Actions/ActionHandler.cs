@@ -12,12 +12,11 @@ public abstract class ActionHandler(
     string context,
     Dictionary<string, object>? settings) : IDisposable
 {
+    private bool _disposed;
     protected StreamDockConnection Connection { get; } = connection;
     protected string Context { get; } = context;
     protected Dictionary<string, object>? Settings { get; private set; } = settings;
 
-    private bool _disposed;
-    
     /// <summary>
     ///     Dispose of resources
     /// </summary>

@@ -5,11 +5,11 @@
         <TargetFramework>net9.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        
+
         <!-- .NET Tool configuration -->
         <PackAsTool>true</PackAsTool>
         <ToolCommandName>streamdock-manifestbuilder</ToolCommandName>
-        
+
         <PackageId>StreamDockSDK.ManifestBuilder</PackageId>
         <Version>1.0.0</Version>
         <Authors>Sejtam_</Authors>
@@ -22,11 +22,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="System.Text.Json" Version="10.0.2" />
+        <PackageReference Include="System.Text.Json" Version="10.0.2"/>
     </ItemGroup>
-    
+
     <ItemGroup>
-      <ProjectReference Include="..\StreamDockSDK.Attributes\StreamDockSDK.Attributes.csproj" />
+        <ProjectReference Include="..\StreamDockSDK.Attributes\StreamDockSDK.Attributes.csproj"/>
     </ItemGroup>
 
 </Project>

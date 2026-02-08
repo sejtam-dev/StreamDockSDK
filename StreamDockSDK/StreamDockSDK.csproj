@@ -20,10 +20,10 @@
     <ItemGroup>
         <PackageReference Include="log4net" Version="3.2.0"/>
     </ItemGroup>
-    
+
     <ItemGroup>
         <!-- ProjectReference automatically becomes PackageReference dependency in NuGet -->
-        <ProjectReference Include="..\StreamDockSDK.Attributes\StreamDockSDK.Attributes.csproj" />
+        <ProjectReference Include="..\StreamDockSDK.Attributes\StreamDockSDK.Attributes.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -33,7 +33,7 @@
 
     <ItemGroup>
         <!-- Include MSBuild targets for automatic manifest generation -->
-        <None Include="Build\StreamDockSDK.targets" Pack="true" PackagePath="build\$(PackageId).targets" />
+        <None Include="Build\StreamDockSDK.targets" Pack="true" PackagePath="build\$(PackageId).targets"/>
     </ItemGroup>
 
 

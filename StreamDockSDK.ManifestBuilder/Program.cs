@@ -6,8 +6,8 @@ using StreamDockSDK.Attributes;
 namespace StreamDockSDK.ManifestBuilder;
 
 /// <summary>
-/// Manifest builder for StreamDock plugins.
-/// Scans assemblies for StreamDock attributes and generates manifest.json.
+///     Manifest builder for StreamDock plugins.
+///     Scans assemblies for StreamDock attributes and generates manifest.json.
 /// </summary>
 public class Program
 {
@@ -30,8 +30,8 @@ public class Program
                 return 1;
             }
 
-            string assemblyPath = args[0];
-            string outputPath = args[1];
+            var assemblyPath = args[0];
+            var outputPath = args[1];
 
             if (!File.Exists(assemblyPath))
             {
@@ -43,20 +43,17 @@ public class Program
             Console.WriteLine($"Output manifest to: {outputPath}");
 
             // Load the assembly
-            Assembly assembly = Assembly.LoadFrom(assemblyPath);
+            var assembly = Assembly.LoadFrom(assemblyPath);
 
             // Generate manifest
             var manifest = GenerateManifest(assembly);
 
             // Serialize to JSON
-            string json = JsonSerializer.Serialize(manifest, JsonOptions);
+            var json = JsonSerializer.Serialize(manifest, JsonOptions);
 
             // Ensure output directory exists
-            string? outputDir = Path.GetDirectoryName(outputPath);
-            if (!string.IsNullOrEmpty(outputDir))
-            {
-                Directory.CreateDirectory(outputDir);
-            }
+            var outputDir = Path.GetDirectoryName(outputPath);
+            if (!string.IsNullOrEmpty(outputDir)) Directory.CreateDirectory(outputDir);
 
             // Write manifest file
             File.WriteAllText(outputPath, json);
@@ -75,20 +72,18 @@ public class Program
     private static Dictionary<string, object> GenerateManifest(Assembly assembly)
     {
         // Find the plugin class (class with SDPluginAttribute)
-        Type? pluginType = assembly.GetTypes()
+        var pluginType = assembly.GetTypes()
             .FirstOrDefault(t => t.GetCustomAttribute<SDPluginAttribute>() != null);
 
         if (pluginType == null)
-        {
             throw new InvalidOperationException(
                 "No class with [SDPlugin] attribute found in assembly. " +
                 "Please add [SDPlugin] attribute to your main plugin class.");
-        }
 
         var pluginAttr = pluginType.GetCustomAttribute<SDPluginAttribute>()!;
 
         // Extract package ID from plugin attribute
-        string? packageId = pluginAttr.PackageId;
+        var packageId = pluginAttr.PackageId;
 
         // Build manifest dictionary
         var manifest = new Dictionary<string, object>();
@@ -99,11 +94,9 @@ public class Program
             .ToList();
 
         if (actionTypes.Count == 0)
-        {
             throw new InvalidOperationException(
                 "No classes with [SDAction] attribute found. " +
                 "At least one action is required.");
-        }
 
         // Build Actions array
         var actions = new List<Dictionary<string, object>>();
@@ -132,7 +125,7 @@ public class Program
         else
         {
             // Auto-detect: if assembly name ends with .exe, use it, otherwise assume .dll
-            string assemblyName = assembly.GetName().Name ?? "plugin";
+            var assemblyName = assembly.GetName().Name ?? "plugin";
             manifest["CodePath"] = assemblyName + ".exe";
         }
 
@@ -169,38 +162,31 @@ public class Program
 
         // Software minimum version
         if (!string.IsNullOrEmpty(pluginAttr.MinimumVersionOfSoftware))
-        {
             manifest["Software"] = new Dictionary<string, object>
             {
                 ["MinimumVersion"] = pluginAttr.MinimumVersionOfSoftware
             };
-        }
 
         // Applications to monitor
         var appsToMonitorAttrs = pluginType.GetCustomAttributes<SDPluginApplicationsToMonitorAttribute>().ToList();
         if (appsToMonitorAttrs.Count > 0)
         {
             var appsDict = new Dictionary<string, object>();
-            foreach (var attr in appsToMonitorAttrs)
-            {
-                appsDict[attr.OS] = attr.Applications;
-            }
+            foreach (var attr in appsToMonitorAttrs) appsDict[attr.OS] = attr.Applications;
             manifest["ApplicationsToMonitor"] = appsDict;
         }
 
         return manifest;
     }
 
-    private static Dictionary<string, object> BuildAction(SDActionAttribute actionAttr, Type actionType, string? packageId)
+    private static Dictionary<string, object> BuildAction(SDActionAttribute actionAttr, Type actionType,
+        string? packageId)
     {
         var action = new Dictionary<string, object>();
 
         // Build UUID (prepend package ID if provided)
-        string uuid = actionAttr.Uuid;
-        if (!string.IsNullOrEmpty(packageId) && !uuid.StartsWith(packageId))
-        {
-            uuid = $"{packageId}.{uuid}";
-        }
+        var uuid = actionAttr.Uuid;
+        if (!string.IsNullOrEmpty(packageId) && !uuid.StartsWith(packageId)) uuid = $"{packageId}.{uuid}";
         action["UUID"] = uuid;
 
         action["Icon"] = actionAttr.Icon;

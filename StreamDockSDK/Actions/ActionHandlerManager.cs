@@ -21,11 +21,11 @@ public delegate ActionHandler? ActionHandlerFactory(StreamDockConnection connect
 public class ActionHandlerManager : IDisposable
 {
     private static readonly ILog Log = LogManager.GetLogger(typeof(ActionHandlerManager));
-    
+
     private readonly Dictionary<string, ActionHandlerFactory> _factories = new();
     private readonly Dictionary<string, ActionHandler> _handlers = new();
     private readonly Dictionary<string, Type> _handlerTypes = new();
-    
+
     private readonly SemaphoreSlim _semaphore = new(1, 1);
     private bool _disposed;
 
@@ -91,34 +91,28 @@ public class ActionHandlerManager : IDisposable
         assembly ??= Assembly.GetCallingAssembly();
 
         Log.Debug($"Discovering handlers in assembly: {assembly.FullName}");
-        
+
         // Find plugin class with [SDPlugin] attribute to get PackageId
         var allTypes = assembly.GetTypes();
         Log.Debug($"Total types in assembly: {allTypes.Length}");
-        
+
         var pluginType = allTypes
             .FirstOrDefault(t => t.GetCustomAttribute<SDPluginAttribute>() != null);
-        
-        if (pluginType != null)
-        {
-            Log.Debug($"Found plugin type: {pluginType.FullName}");
-        }
-        
+
+        if (pluginType != null) Log.Debug($"Found plugin type: {pluginType.FullName}");
+
         var packageId = pluginType?.GetCustomAttribute<SDPluginAttribute>()?.PackageId;
 
         if (string.IsNullOrEmpty(packageId))
-        {
-            Log.Warn("No [SDPlugin] attribute found in assembly or PackageId is empty. Handlers will be registered without PackageId prefix.");
-        }
+            Log.Warn(
+                "No [SDPlugin] attribute found in assembly or PackageId is empty. Handlers will be registered without PackageId prefix.");
         else
-        {
             Log.Info($"Found plugin with PackageId: {packageId}");
-        }
 
         var handlerTypes = allTypes
             .Where(t => t.IsClass && !t.IsAbstract && t.IsSubclassOf(typeof(ActionHandler)))
             .ToList();
-        
+
         Log.Debug($"Found {handlerTypes.Count} handler types");
 
         _semaphore.Wait();
@@ -130,10 +124,10 @@ public class ActionHandlerManager : IDisposable
                 foreach (var attr in attributes)
                 {
                     // Construct full action ID: packageId.uuid
-                    var fullActionId = string.IsNullOrEmpty(packageId) 
-                        ? attr.Uuid 
+                    var fullActionId = string.IsNullOrEmpty(packageId)
+                        ? attr.Uuid
                         : $"{packageId}.{attr.Uuid}";
-                    
+
                     _handlerTypes[fullActionId] = type;
                     Log.Info($"Discovered handler {type.Name} for action: {fullActionId}");
                 }

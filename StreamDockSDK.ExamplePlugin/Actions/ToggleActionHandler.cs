@@ -23,7 +23,8 @@ namespace ExamplePlugin.Actions;
     Icon = "Assets/Icons/toggle-off.png",
     Tooltip = "Toggle between ON and OFF states",
     UserTitleEnabled = false,
-    Controllers = [
+    Controllers =
+    [
         "Keypad"
     ],
     PropertyInspectorPath = "Assets/PropertyInspector/toggle.html"

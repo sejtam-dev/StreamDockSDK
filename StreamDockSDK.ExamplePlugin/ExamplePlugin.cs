@@ -64,7 +64,7 @@ public class ExamplePlugin : StreamDockPlugin
     {
         // Automatically discover and register action handlers
         HandlerManager.DiscoverHandlers(Assembly.GetExecutingAssembly());
-        
+
         Log.Info("Example Plugin connected to StreamDock");
     }
 

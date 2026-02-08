@@ -19,13 +19,13 @@
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
             <Link>log4net.config</Link>
         </Content>
-        
+
         <!-- Copy manifest.json from Assets to root output folder if it exists (has priority over autogeneration) -->
         <Content Include="Assets\manifest.json" Condition="Exists('Assets\manifest.json')">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
             <Link>manifest.json</Link>
         </Content>
-        
+
         <!-- Copy all other files from Assets folder recursively (excluding log4net.config and manifest.json) -->
         <Content Include="Assets\**\*" Exclude="Assets\log4net.config;Assets\manifest.json">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -33,6 +33,6 @@
     </ItemGroup>
 
     <!-- Import StreamDockSDK targets for automatic manifest generation -->
-    <Import Project="..\StreamDockSDK\Build\StreamDockSDK.targets" Condition="Exists('..\StreamDockSDK\Build\StreamDockSDK.targets')" />
+    <Import Project="..\StreamDockSDK\Build\StreamDockSDK.targets" Condition="Exists('..\StreamDockSDK\Build\StreamDockSDK.targets')"/>
 
 </Project>

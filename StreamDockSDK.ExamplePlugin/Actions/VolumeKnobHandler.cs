@@ -36,7 +36,7 @@ public class VolumeKnobHandler : ActionHandler
     private static readonly ILog Logger = LogManager.GetLogger(typeof(VolumeKnobHandler));
 
     private readonly object _lock = new();
-    
+
     private bool _isMuted;
     private int _pendingVolumeChange;
 

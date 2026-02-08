@@ -4,7 +4,9 @@ Automatic manifest.json generator for StreamDock plugins using C# attributes.
 
 ## Overview
 
-The ManifestBuilder automatically generates `manifest.json` files for your StreamDock plugins by reading metadata from C# attributes applied to your plugin and action classes. This eliminates the need to manually maintain JSON manifest files and ensures consistency between your code and manifest.
+The ManifestBuilder automatically generates `manifest.json` files for your StreamDock plugins by reading metadata from
+C# attributes applied to your plugin and action classes. This eliminates the need to manually maintain JSON manifest
+files and ensures consistency between your code and manifest.
 
 ## Installation
 
@@ -14,7 +16,8 @@ When you install StreamDockSDK via NuGet, ManifestBuilder is automatically inclu
 dotnet add package StreamDockSDK
 ```
 
-**That's it!** No additional configuration needed. The MSBuild targets are automatically imported and ManifestBuilder will run after each build.
+**That's it!** No additional configuration needed. The MSBuild targets are automatically imported and ManifestBuilder
+will run after each build.
 
 ## How It Works
 
@@ -25,7 +28,8 @@ When you build your plugin project:
 3. **Manifest is generated** in your output directory (`bin/Debug/net9.0/manifest.json`)
 4. **If manifest exists**, generation is skipped (delete it to regenerate)
 
-The ManifestBuilder is included in the StreamDockSDK NuGet package in the `tools/net9.0/` folder and is automatically invoked by MSBuild targets.
+The ManifestBuilder is included in the StreamDockSDK NuGet package in the `tools/net9.0/` folder and is automatically
+invoked by MSBuild targets.
 
 ## Usage
 
@@ -100,38 +104,38 @@ The `manifest.json` will be automatically generated in your output directory.
 
 Main plugin metadata:
 
-| Property | Required | Description |
-|----------|----------|-------------|
-| `PackageId` | ✅ | Unique package identifier (e.g., "com.example.plugin") |
-| `Name` | ✅ | Plugin display name |
-| `Version` | ✅ | Plugin version (e.g., "1.0.0") |
-| `Author` | ✅ | Plugin author name |
-| `Description` | ✅ | Plugin description |
-| `Icon` | ✅ | Path to plugin icon (128x128 recommended) |
-| `SdkVersion` | ✅ | SDK version (currently 1) |
-| `CodePath` | ❌ | Path to executable (auto-detected if not specified) |
-| `Category` | ❌ | Custom category name |
-| `CategoryIcon` | ❌ | Path to category icon (48x48) |
-| `Url` | ❌ | Plugin website URL |
-| `MinimumVersionOfSoftware` | ❌ | Minimum StreamDock version required |
+| Property                   | Required | Description                                            |
+|----------------------------|----------|--------------------------------------------------------|
+| `PackageId`                | ✅        | Unique package identifier (e.g., "com.example.plugin") |
+| `Name`                     | ✅        | Plugin display name                                    |
+| `Version`                  | ✅        | Plugin version (e.g., "1.0.0")                         |
+| `Author`                   | ✅        | Plugin author name                                     |
+| `Description`              | ✅        | Plugin description                                     |
+| `Icon`                     | ✅        | Path to plugin icon (128x128 recommended)              |
+| `SdkVersion`               | ✅        | SDK version (currently 1)                              |
+| `CodePath`                 | ❌        | Path to executable (auto-detected if not specified)    |
+| `Category`                 | ❌        | Custom category name                                   |
+| `CategoryIcon`             | ❌        | Path to category icon (48x48)                          |
+| `Url`                      | ❌        | Plugin website URL                                     |
+| `MinimumVersionOfSoftware` | ❌        | Minimum StreamDock version required                    |
 
 ### SDPluginOS
 
 Operating system requirement (can be applied multiple times):
 
-| Property | Required | Description |
-|----------|----------|-------------|
-| `Platform` | ✅ | "windows" or "mac" |
-| `MinimumVersion` | ✅ | Minimum OS version (e.g., "10" for Windows, "10.15" for macOS) |
+| Property         | Required | Description                                                    |
+|------------------|----------|----------------------------------------------------------------|
+| `Platform`       | ✅        | "windows" or "mac"                                             |
+| `MinimumVersion` | ✅        | Minimum OS version (e.g., "10" for Windows, "10.15" for macOS) |
 
 ### SDPluginApplicationsToMonitor
 
 Monitor application launch/termination events (can be applied multiple times):
 
-| Property | Required | Description |
-|----------|----------|-------------|
-| `OS` | ✅ | "windows" or "mac" |
-| `Applications` | ✅ | Comma-separated list of apps to monitor |
+| Property       | Required | Description                             |
+|----------------|----------|-----------------------------------------|
+| `OS`           | ✅        | "windows" or "mac"                      |
+| `Applications` | ✅        | Comma-separated list of apps to monitor |
 
 ```csharp
 [SDPluginApplicationsToMonitor(OS = "windows", Applications = "notepad.exe,calc.exe")]
@@ -142,34 +146,34 @@ Monitor application launch/termination events (can be applied multiple times):
 
 Action metadata:
 
-| Property | Required | Description |
-|----------|----------|-------------|
-| `Uuid` | ✅ | Action identifier (PackageId will be prepended automatically) |
-| `Name` | ✅ | Action display name |
-| `Icon` | ✅ | Path to action icon (40x40 recommended) |
-| `Tooltip` | ❌ | Tooltip text |
-| `Controllers` | ❌ | Supported controllers: "Keypad", "Knob", "Information", "SecondaryScreen" |
-| `PropertyInspectorPath` | ❌ | Path to Property Inspector HTML |
-| `UserTitleEnabled` | ❌ | Allow custom title (default: true) |
-| `SupportedInMultiActions` | ❌ | Can be used in multi-actions (default: false) |
-| `State` | ❌ | Default state index |
-| `VisibleInActionsList` | ❌ | Show in actions list (default: true) |
+| Property                  | Required | Description                                                               |
+|---------------------------|----------|---------------------------------------------------------------------------|
+| `Uuid`                    | ✅        | Action identifier (PackageId will be prepended automatically)             |
+| `Name`                    | ✅        | Action display name                                                       |
+| `Icon`                    | ✅        | Path to action icon (40x40 recommended)                                   |
+| `Tooltip`                 | ❌        | Tooltip text                                                              |
+| `Controllers`             | ❌        | Supported controllers: "Keypad", "Knob", "Information", "SecondaryScreen" |
+| `PropertyInspectorPath`   | ❌        | Path to Property Inspector HTML                                           |
+| `UserTitleEnabled`        | ❌        | Allow custom title (default: true)                                        |
+| `SupportedInMultiActions` | ❌        | Can be used in multi-actions (default: false)                             |
+| `State`                   | ❌        | Default state index                                                       |
+| `VisibleInActionsList`    | ❌        | Show in actions list (default: true)                                      |
 
 ### SDActionState
 
 Action state definition (can be applied multiple times for multi-state actions):
 
-| Property | Required | Description |
-|----------|----------|-------------|
-| `Image` | ✅ | Path to state image |
-| `Title` | ❌ | Default title text |
-| `ShowTitle` | ❌ | Show title (default: true) |
-| `TitleColor` | ❌ | Title color (hex, e.g., "#ffffff") |
-| `TitleAlignment` | ❌ | "top", "bottom", "center", "middle" |
-| `FontFamily` | ❌ | Font family name |
-| `FontStyle` | ❌ | "Regular", "Bold", "Italic", "Bold Italic" |
-| `FontSize` | ❌ | Font size |
-| `FontUnderline` | ❌ | Underline title (default: false) |
+| Property         | Required | Description                                |
+|------------------|----------|--------------------------------------------|
+| `Image`          | ✅        | Path to state image                        |
+| `Title`          | ❌        | Default title text                         |
+| `ShowTitle`      | ❌        | Show title (default: true)                 |
+| `TitleColor`     | ❌        | Title color (hex, e.g., "#ffffff")         |
+| `TitleAlignment` | ❌        | "top", "bottom", "center", "middle"        |
+| `FontFamily`     | ❌        | Font family name                           |
+| `FontStyle`      | ❌        | "Regular", "Bold", "Italic", "Bold Italic" |
+| `FontSize`       | ❌        | Font size                                  |
+| `FontUnderline`  | ❌        | Underline title (default: false)           |
 
 ## Manual Usage
 
@@ -180,6 +184,7 @@ dotnet StreamDockSDK.ManifestBuilder.dll <assembly-path> <output-path>
 ```
 
 Example:
+
 ```bash
 dotnet StreamDockSDK.ManifestBuilder.dll "MyPlugin.dll" "manifest.json"
 ```
@@ -218,6 +223,7 @@ When you reference StreamDockSDK via NuGet, the MSBuild targets are automaticall
 ```
 
 The targets file will automatically:
+
 - Locate the ManifestBuilder (from NuGet package `tools/net9.0/` folder)
 - Check if manifest needs regeneration
 - Generate manifest from your attributes
@@ -227,7 +233,8 @@ The targets file will automatically:
 
 ### For Local Development
 
-If you're developing StreamDockSDK locally (not via NuGet), the ManifestBuilder will be automatically found in the local build output:
+If you're developing StreamDockSDK locally (not via NuGet), the ManifestBuilder will be automatically found in the local
+build output:
 
 ```xml
 <ItemGroup>
@@ -256,6 +263,7 @@ StreamDockSDK.1.0.0.nupkg
 ### "ManifestBuilder not found" warning
 
 Make sure StreamDockSDK.ManifestBuilder is built:
+
 ```bash
 dotnet build StreamDockSDK.ManifestBuilder
 ```
@@ -263,6 +271,7 @@ dotnet build StreamDockSDK.ManifestBuilder
 ### Manifest not regenerating
 
 Delete the existing manifest and rebuild:
+
 ```bash
 Remove-Item bin/Debug/net9.0/manifest.json
 dotnet build

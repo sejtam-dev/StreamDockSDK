@@ -24,7 +24,8 @@ namespace ExamplePlugin.Actions;
     Icon = "Assets/Icons/counter.png",
     Tooltip = "Simple counter that increments on press",
     UserTitleEnabled = false,
-    Controllers = [
+    Controllers =
+    [
         "Keypad"
     ],
     PropertyInspectorPath = "Assets/PropertyInspector/counter.html"

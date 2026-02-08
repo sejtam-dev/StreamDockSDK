@@ -1,62 +1,62 @@
 ﻿<Project>
-  <PropertyGroup>
-    <!-- Primary: Use global .NET tool (when installed) -->
-    <StreamDockManifestBuilderCommand>streamdock-manifestbuilder</StreamDockManifestBuilderCommand>
-    
-    <!-- Fallback: Look in local development structure (for development/testing) -->
-    <StreamDockManifestBuilderPath Condition="Exists('$(MSBuildThisFileDirectory)..\..\..\StreamDockSDK.ManifestBuilder\bin\$(Configuration)\net9.0\StreamDockSDK.ManifestBuilder.dll')">$(MSBuildThisFileDirectory)..\..\..\StreamDockSDK.ManifestBuilder\bin\$(Configuration)\net9.0\StreamDockSDK.ManifestBuilder.dll</StreamDockManifestBuilderPath>
-    
-    <!-- Fallback 2: Look relative to project directory -->
-    <StreamDockManifestBuilderPath Condition="'$(StreamDockManifestBuilderPath)' == '' AND Exists('$(ProjectDir)..\StreamDockSDK.ManifestBuilder\bin\$(Configuration)\net9.0\StreamDockSDK.ManifestBuilder.dll')">$(ProjectDir)..\StreamDockSDK.ManifestBuilder\bin\$(Configuration)\net9.0\StreamDockSDK.ManifestBuilder.dll</StreamDockManifestBuilderPath>
-  </PropertyGroup>
-
-  <Target Name="GenerateStreamDockManifest" AfterTargets="Build">
     <PropertyGroup>
-      <ManifestOutputPath>$(OutputPath)manifest.json</ManifestOutputPath>
-      <ManifestSourcePath>$(ProjectDir)Assets\manifest.json</ManifestSourcePath>
-      <PluginAssemblyPath>$(TargetPath)</PluginAssemblyPath>
-      <ManifestExists>false</ManifestExists>
-      <ManifestExistsInAssets>false</ManifestExistsInAssets>
+        <!-- Primary: Use global .NET tool (when installed) -->
+        <StreamDockManifestBuilderCommand>streamdock-manifestbuilder</StreamDockManifestBuilderCommand>
+
+        <!-- Fallback: Look in local development structure (for development/testing) -->
+        <StreamDockManifestBuilderPath Condition="Exists('$(MSBuildThisFileDirectory)..\..\..\StreamDockSDK.ManifestBuilder\bin\$(Configuration)\net9.0\StreamDockSDK.ManifestBuilder.dll')">$(MSBuildThisFileDirectory)..\..\..\StreamDockSDK.ManifestBuilder\bin\$(Configuration)\net9.0\StreamDockSDK.ManifestBuilder.dll</StreamDockManifestBuilderPath>
+
+        <!-- Fallback 2: Look relative to project directory -->
+        <StreamDockManifestBuilderPath Condition="'$(StreamDockManifestBuilderPath)' == '' AND Exists('$(ProjectDir)..\StreamDockSDK.ManifestBuilder\bin\$(Configuration)\net9.0\StreamDockSDK.ManifestBuilder.dll')">$(ProjectDir)..\StreamDockSDK.ManifestBuilder\bin\$(Configuration)\net9.0\StreamDockSDK.ManifestBuilder.dll</StreamDockManifestBuilderPath>
     </PropertyGroup>
 
-    <!-- Check if manifest.json exists in Assets folder (has priority) -->
-    <PropertyGroup Condition="Exists('$(ManifestSourcePath)')">
-      <ManifestExistsInAssets>true</ManifestExistsInAssets>
-    </PropertyGroup>
+    <Target Name="GenerateStreamDockManifest" AfterTargets="Build">
+        <PropertyGroup>
+            <ManifestOutputPath>$(OutputPath)manifest.json</ManifestOutputPath>
+            <ManifestSourcePath>$(ProjectDir)Assets\manifest.json</ManifestSourcePath>
+            <PluginAssemblyPath>$(TargetPath)</PluginAssemblyPath>
+            <ManifestExists>false</ManifestExists>
+            <ManifestExistsInAssets>false</ManifestExistsInAssets>
+        </PropertyGroup>
 
-    <!-- Check if manifest.json already exists in output directory -->
-    <PropertyGroup Condition="Exists('$(ManifestOutputPath)')">
-      <ManifestExists>true</ManifestExists>
-    </PropertyGroup>
+        <!-- Check if manifest.json exists in Assets folder (has priority) -->
+        <PropertyGroup Condition="Exists('$(ManifestSourcePath)')">
+            <ManifestExistsInAssets>true</ManifestExistsInAssets>
+        </PropertyGroup>
 
-    <!-- Only generate if manifest doesn't exist and ManifestBuilder is available -->
-    <Message Text="Checking if manifest generation is needed..." Importance="high" Condition="'$(ManifestExists)' == 'false' AND '$(ManifestExistsInAssets)' == 'false'" />
-    
-    <Message Text="Manifest exists in Assets folder, using that instead of autogeneration" Importance="high" Condition="'$(ManifestExistsInAssets)' == 'true'" />
-    <Message Text="Manifest already exists in output, skipping generation (delete manifest.json to regenerate)" Importance="high" Condition="'$(ManifestExists)' == 'true' AND '$(ManifestExistsInAssets)' == 'false'" />
-    
-    <!-- Try using global .NET tool first -->
-    <Exec Command="$(StreamDockManifestBuilderCommand) &quot;$(PluginAssemblyPath)&quot; &quot;$(ManifestOutputPath)&quot;"
-          Condition="'$(ManifestExists)' == 'false' AND '$(ManifestExistsInAssets)' == 'false'"
-          IgnoreExitCode="true"
-          ContinueOnError="true">
-      <Output TaskParameter="ConsoleOutput" PropertyName="ManifestBuilderOutput" />
-      <Output TaskParameter="ExitCode" PropertyName="ManifestBuilderExitCode" />
-    </Exec>
-    
-    <!-- Fallback to local DLL if tool not found (exit code 9009 = command not found) -->
-    <Exec Command="dotnet &quot;$(StreamDockManifestBuilderPath)&quot; &quot;$(PluginAssemblyPath)&quot; &quot;$(ManifestOutputPath)&quot;"
-          Condition="'$(ManifestExists)' == 'false' AND '$(ManifestExistsInAssets)' == 'false' AND '$(StreamDockManifestBuilderPath)' != '' AND ('$(ManifestBuilderExitCode)' == '9009' OR '$(ManifestBuilderExitCode)' == '')"
-          IgnoreExitCode="false"
-          ContinueOnError="true">
-      <Output TaskParameter="ConsoleOutput" PropertyName="ManifestBuilderOutput" />
-      <Output TaskParameter="ExitCode" PropertyName="ManifestBuilderExitCode" />
-    </Exec>
-    
-    <Warning Text="StreamDockSDK.ManifestBuilder not found. Please install: dotnet tool install -g StreamDockSDK.ManifestBuilder" 
-             Condition="'$(ManifestExists)' == 'false' AND '$(ManifestExistsInAssets)' == 'false' AND ('$(ManifestBuilderExitCode)' == '9009' OR ('$(ManifestBuilderExitCode)' != '0' AND '$(StreamDockManifestBuilderPath)' == ''))" />
+        <!-- Check if manifest.json already exists in output directory -->
+        <PropertyGroup Condition="Exists('$(ManifestOutputPath)')">
+            <ManifestExists>true</ManifestExists>
+        </PropertyGroup>
 
-    <Message Text="$(ManifestBuilderOutput)" Importance="high" Condition="'$(ManifestBuilderOutput)' != ''" />
-    <Message Text="✓ Manifest generated successfully at $(ManifestOutputPath)" Importance="high" Condition="'$(ManifestExists)' == 'false' AND '$(ManifestExistsInAssets)' == 'false' AND '$(ManifestBuilderExitCode)' == '0'" />
-  </Target>
+        <!-- Only generate if manifest doesn't exist and ManifestBuilder is available -->
+        <Message Text="Checking if manifest generation is needed..." Importance="high" Condition="'$(ManifestExists)' == 'false' AND '$(ManifestExistsInAssets)' == 'false'"/>
+
+        <Message Text="Manifest exists in Assets folder, using that instead of autogeneration" Importance="high" Condition="'$(ManifestExistsInAssets)' == 'true'"/>
+        <Message Text="Manifest already exists in output, skipping generation (delete manifest.json to regenerate)" Importance="high" Condition="'$(ManifestExists)' == 'true' AND '$(ManifestExistsInAssets)' == 'false'"/>
+
+        <!-- Try using global .NET tool first -->
+        <Exec Command="$(StreamDockManifestBuilderCommand) &quot;$(PluginAssemblyPath)&quot; &quot;$(ManifestOutputPath)&quot;"
+              Condition="'$(ManifestExists)' == 'false' AND '$(ManifestExistsInAssets)' == 'false'"
+              IgnoreExitCode="true"
+              ContinueOnError="true">
+            <Output TaskParameter="ConsoleOutput" PropertyName="ManifestBuilderOutput"/>
+            <Output TaskParameter="ExitCode" PropertyName="ManifestBuilderExitCode"/>
+        </Exec>
+
+        <!-- Fallback to local DLL if tool not found (exit code 9009 = command not found) -->
+        <Exec Command="dotnet &quot;$(StreamDockManifestBuilderPath)&quot; &quot;$(PluginAssemblyPath)&quot; &quot;$(ManifestOutputPath)&quot;"
+              Condition="'$(ManifestExists)' == 'false' AND '$(ManifestExistsInAssets)' == 'false' AND '$(StreamDockManifestBuilderPath)' != '' AND ('$(ManifestBuilderExitCode)' == '9009' OR '$(ManifestBuilderExitCode)' == '')"
+              IgnoreExitCode="false"
+              ContinueOnError="true">
+            <Output TaskParameter="ConsoleOutput" PropertyName="ManifestBuilderOutput"/>
+            <Output TaskParameter="ExitCode" PropertyName="ManifestBuilderExitCode"/>
+        </Exec>
+
+        <Warning Text="StreamDockSDK.ManifestBuilder not found. Please install: dotnet tool install -g StreamDockSDK.ManifestBuilder"
+                 Condition="'$(ManifestExists)' == 'false' AND '$(ManifestExistsInAssets)' == 'false' AND ('$(ManifestBuilderExitCode)' == '9009' OR ('$(ManifestBuilderExitCode)' != '0' AND '$(StreamDockManifestBuilderPath)' == ''))"/>
+
+        <Message Text="$(ManifestBuilderOutput)" Importance="high" Condition="'$(ManifestBuilderOutput)' != ''"/>
+        <Message Text="✓ Manifest generated successfully at $(ManifestOutputPath)" Importance="high" Condition="'$(ManifestExists)' == 'false' AND '$(ManifestExistsInAssets)' == 'false' AND '$(ManifestBuilderExitCode)' == '0'"/>
+    </Target>
 </Project>

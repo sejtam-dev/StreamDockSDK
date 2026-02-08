@@ -25,7 +25,8 @@ namespace ExamplePlugin.Actions;
     Icon = "Assets/Icons/timer.png",
     Tooltip = "Countdown timer (1-60 minutes)",
     UserTitleEnabled = false,
-    Controllers = [
+    Controllers =
+    [
         "Knob"
     ],
     PropertyInspectorPath = "Assets/PropertyInspector/timerknob.html"
